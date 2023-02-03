@@ -1,9 +1,11 @@
 extends Node2D
 
 func _ready():
+
 	var player = load("res://Actors/Player.tscn").instance()
 	var connector_point_scene = load("res://Objects/ConnectorPoint.tscn")
 	var connector_points = [connector_point_scene.instance(), connector_point_scene.instance()]
+
 	for i in connector_points.size():
 		var point = connector_points[i]
 		point.position = Vector2((i+1) * 200, 50)
