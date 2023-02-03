@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Objects/ConnectorPoint.gd" type="Script" id=1]
+[ext_resource path="res://assets/connector_point.png" type="Texture" id=2]
+
+[node name="ConnectorPoint" type="Node2D"]
+scale = Vector2( 4, 4 )
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
