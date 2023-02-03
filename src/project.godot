@@ -25,6 +25,11 @@ _global_script_classes=[ {
 "path": "res://Objects/Point.gd"
 }, {
 "base": "Point",
+"class": "PreviewPoint",
+"language": "GDScript",
+"path": "res://Objects/PreviewPoint.gd"
+}, {
+"base": "Point",
 "class": "RootPoint",
 "language": "GDScript",
 "path": "res://Objects/RootPoint.gd"
@@ -33,6 +38,7 @@ _global_script_class_icons={
 "ConnectorPoint": "",
 "Player": "",
 "Point": "",
+"PreviewPoint": "",
 "RootPoint": ""
 }
 
@@ -41,6 +47,10 @@ _global_script_class_icons={
 config/name="GGJ2023"
 run/main_scene="res://Maps/map_1.tscn"
 config/icon="res://icon.png"
+
+[global]
+
+plugin=false
 
 [gui]
 
@@ -53,6 +63,11 @@ ui_end={
 "events": [  ]
 }
 switch_node={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+place_connector_point={
 "deadzone": 0.5,
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
  ]
