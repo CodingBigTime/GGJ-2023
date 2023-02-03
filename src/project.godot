@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Point",
+"language": "GDScript",
+"path": "res://Actors/Point.gd"
+} ]
+_global_script_class_icons={
+"Point": ""
+}
+
 [application]
 
 config/name="GGJ2023"
