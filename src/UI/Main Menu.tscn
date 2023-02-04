@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/Buttons/exit_button_hover.png" type="Texture" id=1]
 [ext_resource path="res://assets/logo.png" type="Texture" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://assets/Buttons/start_button_hover.png" type="Texture" id=6]
 [ext_resource path="res://UI/Exit Button.gd" type="Script" id=7]
 [ext_resource path="res://UI/Start Button.gd" type="Script" id=8]
+[ext_resource path="res://assets/SFX/button_release.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/SFX/button_press.wav" type="AudioStream" id=10]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
@@ -57,6 +59,12 @@ texture_pressed = ExtResource( 3 )
 texture_hover = ExtResource( 6 )
 script = ExtResource( 8 )
 
+[node name="down" type="AudioStreamPlayer" parent="HSplitContainer/VBoxContainer/VBoxContainer/Start Button"]
+stream = ExtResource( 10 )
+
+[node name="up" type="AudioStreamPlayer" parent="HSplitContainer/VBoxContainer/VBoxContainer/Start Button"]
+stream = ExtResource( 9 )
+
 [node name="Exit Button" type="TextureButton" parent="HSplitContainer/VBoxContainer/VBoxContainer"]
 margin_top = 68.0
 margin_right = 320.0
@@ -65,6 +73,12 @@ texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 5 )
 texture_hover = ExtResource( 1 )
 script = ExtResource( 7 )
+
+[node name="down" type="AudioStreamPlayer" parent="HSplitContainer/VBoxContainer/VBoxContainer/Exit Button"]
+stream = ExtResource( 10 )
+
+[node name="up" type="AudioStreamPlayer" parent="HSplitContainer/VBoxContainer/VBoxContainer/Exit Button"]
+stream = ExtResource( 9 )
 
 [node name="Label2" type="Label" parent="HSplitContainer/VBoxContainer"]
 margin_top = 509.0
@@ -85,3 +99,9 @@ margin_top = 388.0
 margin_right = 698.0
 margin_bottom = 452.0
 texture = ExtResource( 2 )
+
+[connection signal="button_down" from="HSplitContainer/VBoxContainer/VBoxContainer/Start Button" to="HSplitContainer/VBoxContainer/VBoxContainer/Start Button" method="_on_Start_Button_button_down"]
+[connection signal="button_up" from="HSplitContainer/VBoxContainer/VBoxContainer/Start Button" to="HSplitContainer/VBoxContainer/VBoxContainer/Start Button" method="_on_Start_Button_button_up"]
+[connection signal="child_exiting_tree" from="HSplitContainer/VBoxContainer/VBoxContainer/Start Button/down" to="HSplitContainer/VBoxContainer/VBoxContainer/Start Button" method="_on_down_child_exiting_tree"]
+[connection signal="button_down" from="HSplitContainer/VBoxContainer/VBoxContainer/Exit Button" to="HSplitContainer/VBoxContainer/VBoxContainer/Exit Button" method="_on_Exit_Button_button_down"]
+[connection signal="button_up" from="HSplitContainer/VBoxContainer/VBoxContainer/Exit Button" to="HSplitContainer/VBoxContainer/VBoxContainer/Exit Button" method="_on_Exit_Button_button_up"]
