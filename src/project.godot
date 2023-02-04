@@ -66,6 +66,10 @@ config/name="GGJ2023"
 run/main_scene="res://UI/Main Menu.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/always_on_top=true
+
 [global]
 
 plugin=false
