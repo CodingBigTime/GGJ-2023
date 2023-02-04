@@ -11,15 +11,9 @@ func connect_point(point: Point):
 	point.get_connections()[self] = root_path
 
 func create_edge(point: Point):
-	var angle = point.position.angle_to_point(position)
 	var connection = connection_scene.instance()
-	connection.position = point.position
-	connection.rotation = PI+angle
-	var sprite = connection.get_node("Sprite");
-	sprite.region_enabled = true
-	sprite.region_rect.end.y = sprite.texture.get_height()
-	sprite.region_rect.end.x = position.distance_to(point.position)
 	get_node("..").add_child(connection)
+	connection.update_position(position, point.position)
 	return connection
 
 func remove_edges():

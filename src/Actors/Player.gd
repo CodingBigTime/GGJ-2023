@@ -11,11 +11,15 @@ var points = 0
 var score_display = Label.new()
 
 var preview_point: PreviewPoint = null
+var preview_path: PreviewPath = null
 
 func _ready():
 	preview_point = load("res://Objects/PreviewPoint.tscn").instance()
+	preview_path = load("res://Objects/PreviewPath.tscn").instance()
 	add_child(preview_point)
+	add_child(preview_path)
 	preview_point.set_visible(false)
+	preview_path.set_visible(false)
 	get_node("..").add_child(score_display)
 	score_display.set_position(Vector2(0, 0))
 
@@ -49,6 +53,7 @@ func _physics_process(delta):
 	)
 
 	preview_point.update_state(self)
+	preview_path.update_position(Vector2.ZERO, preview_point.position)
 
 	if (preview_point.state == PreviewPoint.State.VALID_NEW_POINT):
 		if (Input.is_action_just_pressed("place_connector_point")): 
@@ -62,6 +67,11 @@ func _physics_process(delta):
 			current_point.connect_point(preview_point.closest_point)
 			set_current_point(preview_point.closest_point)
 			current_point.set_owner(self)
+
+	if (preview_point.state == PreviewPoint.State.HIDDEN):
+		preview_path.set_visible(false)
+	else:
+		preview_path.set_visible(true)
 
 	if (Input.is_action_just_pressed("remove_node")):
 		current_point.get_connector_points()[0].remove_edges()
