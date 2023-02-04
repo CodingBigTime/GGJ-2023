@@ -6,9 +6,9 @@ var _connections: Dictionary = {}
 var connection_scene = load("res://Objects/RootPath.tscn")
 
 func connect_point(point: Point):
-	_connections[point] = create_edge(point)
-	point.get_connector_points().push_back(self)
-
+	var root_path = create_edge(point)
+	_connections[point] = root_path
+	point.get_connections()[self] = root_path
 
 func create_edge(point: Point):
 	var angle = point.position.angle_to_point(position)
@@ -22,6 +22,19 @@ func create_edge(point: Point):
 	get_node("..").add_child(connection)
 	return connection
 
+func remove_edges():
+	for k in _connections:
+		print(k)
+		remove_edge(k)
+		k.remove_edge(self)
+
+	self.queue_free()
+
+func remove_edge(point: Point):
+	_connections[point].queue_free()
 
 func get_connector_points():
 	return _connections.keys()
+
+func get_connections():
+	return _connections

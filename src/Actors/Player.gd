@@ -29,6 +29,9 @@ func _physics_process(delta):
 			current_point.connect_point(connector_point)
 			draw_line(current_point.position, connector_point.position, Color(255, 0, 0), 1)
 			set_current_point(connector_point)
+	if (Input.is_action_just_pressed("remove_node")):
+		current_point.get_connector_points()[0].remove_edges()
+
 
 	preview_point.update_position(left_stick_angle, left_stick_distance)
 
