@@ -89,16 +89,17 @@ func abs_min_angle(angle):
 
 func _draw():
 	if (preview_point.state != PreviewPoint.State.HIDDEN):
-		var color = Color(255, 255, 255)
+		var color = null
 		match preview_point.state:
 			PreviewPoint.State.VALID_NEW_POINT:
-				color = Color(0, 255, 0)
+				color = Color(0, 1.6, 0, 0.4)
 			PreviewPoint.State.INVALID_NEW_POINT:
-				color = Color(255, 0, 0)
+				color = Color(1.6, 0, 0, 0.4)
 			PreviewPoint.State.SNAP_TO_POINT:
-				color = Color(0, 0, 255)
-		draw_line(Vector2.ZERO, preview_point.position, color, 3)
-
+				color = Color(0, 0, 1.6, 0.4)
+		if color != null:
+			preview_path.modulate = color
+			preview_point.modulate = color
 func set_current_point(point: Point):
 	current_point = point
 	position = point.position
