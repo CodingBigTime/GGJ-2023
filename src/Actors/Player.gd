@@ -14,6 +14,8 @@ var score_display = Label.new()
 var preview_point: PreviewPoint = null
 var preview_path: PreviewPath = null
 
+var scale_values = [Vector2(1.5, 1.5), Vector2(2,2)]
+
 func _ready():
 	preview_point = load("res://Objects/PreviewPoint.tscn").instance()
 	preview_path = load("res://Objects/PreviewPath.tscn").instance()
@@ -23,6 +25,18 @@ func _ready():
 	preview_path.set_visible(false)
 	get_node("..").add_child(score_display)
 	score_display.set_position(Vector2(0, player_id*50))
+	start_scale_tween()
+
+func start_scale_tween():
+	var sprite = get_node("Sprite")
+	var tween = get_node("Tween")
+	tween.interpolate_property(sprite, "scale", scale_values[0], scale_values[1], 2.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+	tween.connect("tween_completed", self, "on_scale_tween_completed")
+	tween.start()
+
+func on_scale_tween_completed(object, key):
+	scale_values.invert()
+	start_scale_tween()
 
 func _physics_process(delta):
 	var left_stick_angle = Utils.get_joystick_direction(JOY_ANALOG_LX, JOY_ANALOG_LY, player_id)
@@ -93,7 +107,7 @@ func _physics_process(delta):
 
 func update_sprite(delta):
 	var sprite = get_node("Sprite")
-	sprite.rotation += delta * 0.75
+	sprite.rotation += delta * 0.5
 
 func min_angle(angle):
 	return min(2*PI-angle, angle)
