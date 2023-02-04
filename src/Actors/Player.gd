@@ -33,6 +33,8 @@ func _physics_process(delta):
 
 	movement_delta += delta
 
+	update_sprite(delta)
+
 	if(abs(right_stick_distance) > CONTROLLER_DEADZONE):
 		var connected_points = current_point.get_connector_points()
 		if connected_points.size() > 0 and movement_delta >= MOVE_DELAY:
@@ -89,6 +91,9 @@ func _physics_process(delta):
 
 	score_display.set_text("Player " + str(player_id) + ": " + str(points))
 
+func update_sprite(delta):
+	var sprite = get_node("Sprite")
+	sprite.rotation += delta * 0.75
 
 func min_angle(angle):
 	return min(2*PI-angle, angle)
