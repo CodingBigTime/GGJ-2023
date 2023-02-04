@@ -18,15 +18,16 @@ func _physics_process(delta):
 	var left_stick_distance = get_joystick_distance(JOY_ANALOG_LX, JOY_ANALOG_LY)
 	var right_stick_distance = get_joystick_distance(JOY_ANALOG_RX, JOY_ANALOG_RY)
 
-#	if(abs(right_stick_distance) > CONTROLLER_DEADZONE):
-#		print(right_stick_distance)
+	if(abs(right_stick_distance) > CONTROLLER_DEADZONE):
+		print(right_stick_distance)
 	if(abs(left_stick_distance) > CONTROLLER_DEADZONE):
-#		print(left_stick_distance)
+		print(left_stick_distance)
 		if (Input.is_action_just_pressed("place_connector_point")): 
 			var connector_point = load("res://Objects/ConnectorPoint.tscn").instance()
 			get_node("..").add_child(connector_point)
 			connector_point.position = position + preview_point.position
 			current_point.connect_point(connector_point)
+			draw_line(current_point.position, connector_point.position, Color(255, 0, 0), 1)
 			set_current_point(connector_point)
 
 	preview_point.update_position(left_stick_angle, left_stick_distance)

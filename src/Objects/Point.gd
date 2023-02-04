@@ -2,13 +2,12 @@ extends Node2D
 class_name Point
 
 var _belongs_to = null
-var _connector_points: Array = [] # Array of Points
+var _connections: Dictionary = {}
 var connection_scene = load("res://Objects/RootPath.tscn")
 
 func connect_point(point: Point):
-	_connector_points.push_back(point)
+	_connections[point] = create_edge(point)
 	point.get_connector_points().push_back(self)
-	create_edge(point)
 
 
 func create_edge(point: Point):
@@ -21,7 +20,8 @@ func create_edge(point: Point):
 	sprite.region_rect.end.y = sprite.texture.get_height()
 	sprite.region_rect.end.x = position.distance_to(point.position)
 	get_node("..").add_child(connection)
+	return connection
 
 
 func get_connector_points():
-	return _connector_points
+	return _connections.keys()
