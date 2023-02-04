@@ -8,6 +8,10 @@ var MOVEMENT_LIMIT = PI/2
 var movement_delta = 1
 var player_id = 0
 
+var rng = RandomNumberGenerator.new()
+
+onready var listener = $Listener2D
+
 var points = 0
 var score_display = Label.new()
 
@@ -26,6 +30,12 @@ func _ready():
 	get_node("..").add_child(score_display)
 	score_display.set_position(Vector2(0, player_id*50))
 	start_scale_tween()
+	rng.randomize()
+	$Listener2D/root_connect.set_volume_db(-15)
+	$Listener2D/root_connect.set_attenuation(2)
+	$Listener2D/new_root.set_attenuation(2)
+	$Listener2D/root_connect.set_max_distance(10000)
+	$Listener2D/new_root.set_max_distance(10000)
 
 func start_scale_tween():
 	var sprite = get_node("Sprite")
@@ -79,9 +89,15 @@ func _physics_process(delta):
 			connector_point.rotation = get_node("..").rng.randf_range(0, 2*PI);
 			current_point.connect_point(connector_point)
 			set_current_point(connector_point)
+			listener.position = connector_point.position
+			$Listener2D/new_root.set_pitch_scale(rng.randf_range(0.4, 1))
+			$Listener2D/new_root.play()
 		elif (preview_point.state == PreviewPoint.State.SNAP_TO_POINT):
 			current_point.connect_point(preview_point.closest_point)
 			set_current_point(preview_point.closest_point)
+			listener.position = current_point.position
+			$Listener2D/root_connect.set_pitch_scale(rng.randf_range(0.4, 1))
+			$Listener2D/root_connect.play()
 
 	if (preview_point.state == PreviewPoint.State.HIDDEN):
 		preview_path.set_visible(false)
