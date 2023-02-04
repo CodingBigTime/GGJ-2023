@@ -33,7 +33,7 @@ func update_state(player):
 	for connector_point in player.current_point.get_connector_points():
 		var angle = player.get_angle_to_point(connector_point)
 		var preview_angle = Vector2.ZERO.angle_to_point(position)
-		if abs(angle - preview_angle) < PI / 4:
+		if Utils.get_abs_angle_difference(angle, preview_angle) < PI / 4:
 			state = State.INVALID_NEW_POINT
 			return
 
