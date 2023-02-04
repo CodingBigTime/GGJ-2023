@@ -47,3 +47,6 @@ func get_connections():
 
 func set_owner(player):
 	_current_owner = player
+
+func get_owner():
+	return _current_owner

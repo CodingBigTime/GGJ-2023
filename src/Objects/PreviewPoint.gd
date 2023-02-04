@@ -10,6 +10,7 @@ enum State {
 	VALID_NEW_POINT,
 	INVALID_NEW_POINT,
 	SNAP_TO_POINT,
+	SNAP_TO_ENEMY_POINT
 }
 
 var state: int = State.HIDDEN
@@ -84,7 +85,10 @@ func update_state(player):
 			if distance < closest_distance:
 				closest_distance = distance
 				closest_point = connector_point
-			state = State.SNAP_TO_POINT
+			if (player == connector_point.get_owner()):
+				state = State.SNAP_TO_POINT
+			else:
+				state = State.SNAP_TO_ENEMY_POINT
 			new_snap = true
 	if new_snap:
 		set_visible(false)
