@@ -22,7 +22,7 @@ func _ready():
 	preview_point.set_visible(false)
 	preview_path.set_visible(false)
 	get_node("..").add_child(score_display)
-	score_display.set_position(Vector2(0, 0))
+	score_display.set_position(Vector2(0, player_id*50))
 
 func _physics_process(delta):
 	var left_stick_angle = Utils.get_joystick_direction(JOY_ANALOG_LX, JOY_ANALOG_LY, player_id)
@@ -78,7 +78,7 @@ func _physics_process(delta):
 		current_point.get_connector_points()[0].remove_edges()
 
 	update()
-	score_display.set_text("Score: " + str(points))
+	score_display.set_text("Player " + str(player_id) + ": " + str(points))
 
 
 func min_angle(angle):
