@@ -24,29 +24,29 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
-margin_right = 864.0
-margin_bottom = 360.0
+margin_right = 1760.0
+margin_bottom = 840.0
 split_offset = 300
 dragger_visibility = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer"]
-margin_right = 608.0
-margin_bottom = 360.0
+margin_right = 620.0
+margin_bottom = 840.0
 size_flags_vertical = 3
 custom_constants/separation = 40
 alignment = 1
 
 [node name="Label" type="Label" parent="HSplitContainer/VBoxContainer"]
-margin_top = 43.0
-margin_right = 608.0
-margin_bottom = 57.0
+margin_top = 283.0
+margin_right = 620.0
+margin_bottom = 297.0
 text = "Game Name"
 uppercase = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer"]
-margin_top = 97.0
+margin_top = 337.0
 margin_right = 320.0
-margin_bottom = 229.0
+margin_bottom = 469.0
 size_flags_horizontal = 0
 
 [node name="Start Button" type="TextureButton" parent="HSplitContainer/VBoxContainer/VBoxContainer"]
@@ -67,20 +67,21 @@ texture_hover = ExtResource( 1 )
 script = ExtResource( 7 )
 
 [node name="Label2" type="Label" parent="HSplitContainer/VBoxContainer"]
-margin_top = 269.0
-margin_right = 608.0
-margin_bottom = 317.0
+margin_top = 509.0
+margin_right = 620.0
+margin_bottom = 557.0
 text = "v0.1
 Created for Global Gamejam 2023
 Macedonia"
 
 [node name="CenterContainer" type="CenterContainer" parent="HSplitContainer"]
-margin_left = 608.0
-margin_right = 864.0
-margin_bottom = 360.0
+margin_left = 620.0
+margin_right = 1760.0
+margin_bottom = 840.0
 
 [node name="Logo" type="TextureRect" parent="HSplitContainer/CenterContainer"]
-margin_top = 148.0
-margin_right = 256.0
-margin_bottom = 212.0
+margin_left = 442.0
+margin_top = 388.0
+margin_right = 698.0
+margin_bottom = 452.0
 texture = ExtResource( 2 )

@@ -74,10 +74,19 @@ func _physics_process(delta):
 	else:
 		preview_path.set_visible(true)
 
-	if (Input.is_action_just_pressed("remove_node")):
-		current_point.get_connector_points()[0].remove_edges()
+	if (preview_point.state != PreviewPoint.State.HIDDEN):
+		var color = null
+		match preview_point.state:
+			PreviewPoint.State.VALID_NEW_POINT:
+				color = Color(3, 3, 3, 0.4)
+			PreviewPoint.State.INVALID_NEW_POINT:
+				color = Color(1.5, 1, 1, 0.3)
+			PreviewPoint.State.SNAP_TO_POINT:
+				color = Color(3, 3, 3, 1)
 
-	update()
+		preview_path.modulate = color
+		preview_point.modulate = color
+
 	score_display.set_text("Player " + str(player_id) + ": " + str(points))
 
 
@@ -87,19 +96,6 @@ func min_angle(angle):
 func abs_min_angle(angle):
 	return abs(min_angle(angle))
 
-func _draw():
-	if (preview_point.state != PreviewPoint.State.HIDDEN):
-		var color = null
-		match preview_point.state:
-			PreviewPoint.State.VALID_NEW_POINT:
-				color = Color(0, 1.6, 0, 0.4)
-			PreviewPoint.State.INVALID_NEW_POINT:
-				color = Color(1.6, 0, 0, 0.4)
-			PreviewPoint.State.SNAP_TO_POINT:
-				color = Color(0, 0, 1.6, 0.4)
-		if color != null:
-			preview_path.modulate = color
-			preview_point.modulate = color
 func set_current_point(point: Point):
 	current_point = point
 	position = point.position
