@@ -60,7 +60,7 @@ func _physics_process(delta):
 	update_sprite(delta)
 
 	if(abs(right_stick_distance) > CONTROLLER_DEADZONE):
-		var connected_points = current_point.get_connector_points()
+		var connected_points = current_point.get_connection_points()
 		if connected_points.size() > 0 and movement_delta >= MOVE_DELAY:
 			movement_delta = 0
 			var closest_point = null
@@ -87,17 +87,40 @@ func _physics_process(delta):
 			get_node("..").add_child(connector_point)
 			connector_point.position = position + preview_point.position
 			connector_point.rotation = get_node("..").rng.randf_range(0, 2*PI);
-			current_point.connect_point(connector_point)
+			current_point.connect_point(connector_point, player_id)
 			set_current_point(connector_point)
 			listener.position = connector_point.position
 			$Listener2D/new_root.set_pitch_scale(rng.randf_range(0.4, 1))
 			$Listener2D/new_root.play()
 		elif (preview_point.state == PreviewPoint.State.SNAP_TO_POINT):
-			current_point.connect_point(preview_point.closest_point)
+			current_point.connect_point(preview_point.closest_point, player_id)
 			set_current_point(preview_point.closest_point)
 			listener.position = current_point.position
 			$Listener2D/root_connect.set_pitch_scale(rng.randf_range(0.4, 1))
 			$Listener2D/root_connect.play()
+		elif (preview_point.state == PreviewPoint.State.SNAP_TO_ENEMY_POINT):
+			var is_unoccupied_subgraph = true
+			var connected_points = preview_point.closest_point.get_all_connected_points()
+			var players = []
+			for node in get_node("..").get_children():
+				if "player_id" in node:
+					players.push_back(node)
+			for enemy in players:
+				if (self == enemy):
+					continue
+				if (enemy.current_point in connected_points):
+					is_unoccupied_subgraph = false
+					break
+
+			if is_unoccupied_subgraph:
+				for point in connected_points:
+					point.set_owner(self)
+				current_point.connect_point(preview_point.closest_point)
+				set_current_point(preview_point.closest_point)
+			else:
+				preview_point.closest_point.remove_edges()
+				current_point.connect_point(preview_point.closest_point)
+				set_current_point(preview_point.closest_point)
 
 	if (preview_point.state == PreviewPoint.State.HIDDEN):
 		preview_path.set_visible(false)
@@ -135,8 +158,6 @@ func set_current_point(point: Point):
 	current_point = point
 	position = point.position
 	current_point.set_owner(self)
-	if not '_cooldown' in point:
-		current_point.set_texture(self)
 
 func get_angle_to_point(point: Point):
 	return position.angle_to_point(point.position)
