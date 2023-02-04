@@ -5,6 +5,6 @@
 [node name="Node2D" type="Node2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
-z_index = -2
+z_index = -10
 texture = ExtResource( 1 )
 centered = false
