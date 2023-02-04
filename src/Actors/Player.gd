@@ -6,6 +6,7 @@ var CONTROLLER_DEADZONE = 0.05
 var MOVE_DELAY = 0.25
 var MOVEMENT_LIMIT = PI/2
 var movement_delta = 1
+var player_id = 0
 
 var points = 0
 var score_display = Label.new()
@@ -24,11 +25,11 @@ func _ready():
 	score_display.set_position(Vector2(0, 0))
 
 func _physics_process(delta):
-	var left_stick_angle = Utils.get_joystick_direction(JOY_ANALOG_LX, JOY_ANALOG_LY)
-	var right_stick_angle = Utils.get_joystick_direction(JOY_ANALOG_RX, JOY_ANALOG_RY)
+	var left_stick_angle = Utils.get_joystick_direction(JOY_ANALOG_LX, JOY_ANALOG_LY, player_id)
+	var right_stick_angle = Utils.get_joystick_direction(JOY_ANALOG_RX, JOY_ANALOG_RY, player_id)
 
-	var left_stick_distance = Utils.get_joystick_distance(JOY_ANALOG_LX, JOY_ANALOG_LY)
-	var right_stick_distance = Utils.get_joystick_distance(JOY_ANALOG_RX, JOY_ANALOG_RY)
+	var left_stick_distance = Utils.get_joystick_distance(JOY_ANALOG_LX, JOY_ANALOG_LY, player_id)
+	var right_stick_distance = Utils.get_joystick_distance(JOY_ANALOG_RX, JOY_ANALOG_RY, player_id)
 
 	movement_delta += delta
 
@@ -44,7 +45,6 @@ func _physics_process(delta):
 					closest_point = point
 					min_angle = current_angle
 			if (closest_point != null):
-				print(min_angle)
 				set_current_point(closest_point)
 
 	preview_point.update_position(
@@ -56,7 +56,7 @@ func _physics_process(delta):
 	preview_path.update_position(Vector2.ZERO, preview_point.position)
 
 	if (preview_point.state == PreviewPoint.State.VALID_NEW_POINT):
-		if (Input.is_action_just_pressed("place_connector_point")): 
+		if (Input.is_action_just_pressed("place_connector_point_p" + str(player_id+1))):
 			var connector_point = load("res://Objects/ConnectorPoint.tscn").instance()
 			get_node("..").add_child(connector_point)
 			connector_point.position = position + preview_point.position
@@ -64,7 +64,7 @@ func _physics_process(delta):
 			current_point.connect_point(connector_point)
 			set_current_point(connector_point)
 	elif (preview_point.state == PreviewPoint.State.SNAP_TO_POINT):
-		if (Input.is_action_just_pressed("place_connector_point")): 
+		if (Input.is_action_just_pressed("place_connector_point_p" + str(player_id+1))):
 			current_point.connect_point(preview_point.closest_point)
 			set_current_point(preview_point.closest_point)
 			current_point.set_owner(self)
