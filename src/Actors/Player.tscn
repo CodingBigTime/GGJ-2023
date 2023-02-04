@@ -6,11 +6,6 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
-shader_param/albedo = Color( 1, 1, 1, 1 )
-shader_param/Saturation = 1.0
-shader_param/PulseRate = 5.0
-shader_param/PulseIntensity = 0.1
-shader_param/Opacity = 1.0
 
 [sub_resource type="Environment" id=2]
 background_mode = 4
