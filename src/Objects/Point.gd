@@ -7,8 +7,7 @@ var connection_scene = load("res://Objects/RootPath.tscn")
 var health_points = 1
 
 func spike_transform(point: Point):
-	var spike_texture = preload("res://assets/spikey.png")
-	get_node("Sprite").set_texture(spike_texture)
+	point.get_node('SpikeSprite').visible = true
 	health_points = 3
 
 func connect_point(point: Point):
