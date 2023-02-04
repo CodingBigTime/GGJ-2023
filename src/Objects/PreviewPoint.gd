@@ -85,7 +85,7 @@ func update_state(player):
 			if distance < closest_distance:
 				closest_distance = distance
 				closest_point = connector_point
-			if (player == connector_point.get_owner()):
+			if (player == connector_point.get_owner() or connector_point.get_owner() == null):
 				state = State.SNAP_TO_POINT
 			else:
 				state = State.SNAP_TO_ENEMY_POINT
@@ -99,6 +99,9 @@ func update_state(player):
 		return
 	
 	state = State.VALID_NEW_POINT
+
+func make_spikey(point):
+	pass
 
 func set_visible(visible: bool):
 	get_node("Sprite").visible = visible
