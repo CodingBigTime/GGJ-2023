@@ -24,7 +24,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Objects/Point.gd"
 }, {
-"base": "Node2D",
+"base": "RootPath",
 "class": "PreviewPath",
 "language": "GDScript",
 "path": "res://Objects/PreviewPath.gd"
