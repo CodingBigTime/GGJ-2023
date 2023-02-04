@@ -23,6 +23,9 @@ func _physics_process(delta):
 	var left_stick_angle = Utils.get_joystick_direction(JOY_ANALOG_LX, JOY_ANALOG_LY)
 	var right_stick_angle = Utils.get_joystick_direction(JOY_ANALOG_RX, JOY_ANALOG_RY)
 
+	var left_stick_distance = Utils.get_joystick_distance(JOY_ANALOG_LX, JOY_ANALOG_LY)
+	var right_stick_distance = Utils.get_joystick_distance(JOY_ANALOG_RX, JOY_ANALOG_RY)
+
 	movement_delta += delta
 
 	if(abs(right_stick_distance) > CONTROLLER_DEADZONE):
@@ -32,8 +35,8 @@ func _physics_process(delta):
 			var closest_point = null
 			var min_angle = 1000
 			for point in connected_points:
-				var current_angle = abs(abs_min_angle(point.position.angle_to_point(current_point.position)) - abs_min_angle(right_stick_angle))
-				if current_angle < min_angle && abs(current_angle) < MOVEMENT_LIMIT:
+				var current_angle = Utils.get_abs_angle_difference(-point.position.angle_to_point(current_point.position), right_stick_angle)
+				if current_angle < min_angle && current_angle < MOVEMENT_LIMIT:
 					closest_point = point
 					min_angle = current_angle
 			if (closest_point != null):
@@ -69,6 +72,7 @@ func _physics_process(delta):
 
 func min_angle(angle):
 	return min(2*PI-angle, angle)
+	
 func abs_min_angle(angle):
 	return abs(min_angle(angle))
 
