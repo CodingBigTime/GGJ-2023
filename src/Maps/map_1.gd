@@ -20,7 +20,7 @@ func _ready():
 		var resource_noce = resource_node_scene.instance()
 		add_child(resource_noce)
 		# 						value					cooldown
-		resource_noce.init(rng.randf_range(5, 20), rng.randf_range(1, 7))
+		resource_noce.init(rng.randi_range(5, 20), rng.randf_range(1, 7))
 		resource_noce.position.x = rng.randf_range(50, 1000)
 		resource_noce.position.y = rng.randf_range(50, 1000)
 	player.set_current_point(connector_points[0])

@@ -1,7 +1,7 @@
 extends Node2D
 class_name Point
 
-var _belongs_to = null
+var _current_owner = null
 var _connections: Dictionary = {}
 var connection_scene = load("res://Objects/RootPath.tscn")
 
@@ -41,3 +41,6 @@ func get_connector_points():
 
 func get_connections():
 	return _connections
+
+func set_owner(player):
+	_current_owner = player

@@ -4,7 +4,7 @@ class_name Player
 var current_point: Point = null
 var CONTROLLER_DEADZONE = 0.05
 
-var points = null
+var points = 0
 
 var preview_point: PreviewPoint = null
 
@@ -20,8 +20,8 @@ func _physics_process(delta):
 	var left_stick_distance = get_joystick_distance(JOY_ANALOG_LX, JOY_ANALOG_LY)
 	var right_stick_distance = get_joystick_distance(JOY_ANALOG_RX, JOY_ANALOG_RY)
 
-	if(abs(right_stick_distance) > CONTROLLER_DEADZONE):
-		print(right_stick_distance)
+#	if(abs(right_stick_distance) > CONTROLLER_DEADZONE):
+#		print(right_stick_distance)
 
 	preview_point.update_position(
 		left_stick_angle,
@@ -41,6 +41,7 @@ func _physics_process(delta):
 		if (Input.is_action_just_pressed("place_connector_point")): 
 			current_point.connect_point(preview_point.closest_point)
 			set_current_point(preview_point.closest_point)
+			current_point.set_owner(self)
 
 	if (Input.is_action_just_pressed("remove_node")):
 		current_point.get_connector_points()[0].remove_edges()

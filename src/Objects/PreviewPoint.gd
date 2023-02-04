@@ -39,7 +39,7 @@ func update_state(player):
 
 	var connector_points = []
 	for node in get_node("../..").get_children():
-		if node is ConnectorPoint:
+		if node is ConnectorPoint or node is ResourcePoint:
 			connector_points.push_back(node)
 
 	var closest_distance = 1000000.0
