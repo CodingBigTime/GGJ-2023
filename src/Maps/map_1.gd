@@ -24,7 +24,10 @@ func _ready():
 		players.push_back(player_scene.instance())
 		players[i].player_id = i
 		players[i].set_current_point(connector_points[i])
+
 		connector_points[i].set_owner(players[i])
+		connector_points[i].set_texture(players[i])
+
 		add_child(players[i])
 
 	add_child(load("res://Objects/Background.tscn").instance())

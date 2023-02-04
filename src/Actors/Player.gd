@@ -119,6 +119,8 @@ func set_current_point(point: Point):
 	current_point = point
 	position = point.position
 	current_point.set_owner(self)
+	if not '_cooldown' in point:
+		current_point.set_texture(self)
 
 func get_angle_to_point(point: Point):
 	return position.angle_to_point(point.position)

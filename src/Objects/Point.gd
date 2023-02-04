@@ -48,9 +48,11 @@ func get_connections():
 	return _connections
 
 func set_owner(player):
+	_current_owner = player
+
+func set_texture(player):
 	var player_texture = load("res://assets/players/" + str(player.player_id + 1) + ".png")
 	get_node('Sprite').set_texture(player_texture)
-	_current_owner = player
 
 func get_owner():
 	return _current_owner
