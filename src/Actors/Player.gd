@@ -60,6 +60,7 @@ func _physics_process(delta):
 			var connector_point = load("res://Objects/ConnectorPoint.tscn").instance()
 			get_node("..").add_child(connector_point)
 			connector_point.position = position + preview_point.position
+			connector_point.rotation = get_node("..").rng.randf_range(0, 2*PI);
 			current_point.connect_point(connector_point)
 			set_current_point(connector_point)
 	elif (preview_point.state == PreviewPoint.State.SNAP_TO_POINT):
