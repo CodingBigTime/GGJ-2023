@@ -23,8 +23,7 @@ func create_edge(point: Point):
 	return connection
 
 func remove_edges():
-	for k in _connections:
-		print(k)
+	for k in get_connector_points():
 		remove_edge(k)
 		k.remove_edge(self)
 
@@ -34,7 +33,11 @@ func remove_edge(point: Point):
 	_connections[point].queue_free()
 
 func get_connector_points():
-	return _connections.keys()
+	var keys = []
+	for key in _connections.keys():
+		if is_instance_valid(key):
+			keys.append(key)
+	return keys
 
 func get_connections():
 	return _connections
