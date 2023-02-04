@@ -12,8 +12,8 @@ func make_spikey(point: Point):
 	health_points = 3
 	is_spikey = true
 
-func connect_point(point: Point):
-	var root_path = create_edge(point)
+func connect_point(point: Point,player_id: int):
+	var root_path = create_edge(point, player_id)
 	_connections[point] = root_path
 	point._connections[self] = root_path
 	if "score" in self:
@@ -21,8 +21,20 @@ func connect_point(point: Point):
 	elif "score" in point:
 		make_spikey(self)
 
-func create_edge(point: Point):
+func create_edge(point: Point, player_id: int):
 	var connection = connection_scene.instance()
+	var connection_texture = preload("res://assets/Connections/player_4_vine.png")
+	match player_id:
+		0:
+			connection_texture = preload("res://assets/Connections/player_1_vine.png")
+		1:
+			connection_texture = preload("res://assets/Connections/player_2_vine.png")
+		2:
+			connection_texture = preload("res://assets/Connections/player_3_vine.png")
+		3:
+			connection_texture = preload("res://assets/Connections/player_4_vine.png")
+	
+	connection.get_node("Sprite").set_texture(connection_texture)
 	get_node("..").add_child(connection)
 	connection.update_position(position, point.position)
 	return connection
