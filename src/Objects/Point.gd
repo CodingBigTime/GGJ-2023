@@ -5,19 +5,21 @@ var _current_owner = null
 var _connections: Dictionary = {}
 var connection_scene = load("res://Objects/RootPath.tscn")
 var health_points = 1
+var is_spikey = false
 
-func spike_transform(point: Point):
+func make_spikey(point: Point):
 	point.get_node('SpikeSprite').visible = true
 	health_points = 3
+	is_spikey = true
 
 func connect_point(point: Point):
 	var root_path = create_edge(point)
 	_connections[point] = root_path
 	point.get_connections()[self] = root_path
 	if "score" in self:
-		point.spike_transform(point)
+		point.make_spikey(point)
 	elif "score" in point:
-		spike_transform(self)
+		make_spikey(self)
 
 func create_edge(point: Point):
 	var connection = connection_scene.instance()
@@ -46,6 +48,8 @@ func get_connections():
 	return _connections
 
 func set_owner(player):
+	var player_texture = load("res://assets/players/" + str(player.player_id + 1) + ".png")
+	get_node('Sprite').set_texture(player_texture)
 	_current_owner = player
 
 func get_owner():
