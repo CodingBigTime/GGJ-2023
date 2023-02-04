@@ -57,19 +57,17 @@ func _physics_process(delta):
 	preview_point.update_state(self)
 	preview_path.update_position(Vector2.ZERO, preview_point.position)
 
-	if (preview_point.state == PreviewPoint.State.VALID_NEW_POINT):
-		if (Input.is_action_just_pressed("place_connector_point_p" + str(player_id+1))):
+	if (Input.is_action_just_pressed("place_connector_point_p" + str(player_id+1))):
+		if (preview_point.state == PreviewPoint.State.VALID_NEW_POINT):
 			var connector_point = load("res://Objects/ConnectorPoint.tscn").instance()
 			get_node("..").add_child(connector_point)
 			connector_point.position = position + preview_point.position
 			connector_point.rotation = get_node("..").rng.randf_range(0, 2*PI);
 			current_point.connect_point(connector_point)
 			set_current_point(connector_point)
-	elif (preview_point.state == PreviewPoint.State.SNAP_TO_POINT):
-		if (Input.is_action_just_pressed("place_connector_point_p" + str(player_id+1))):
+		elif (preview_point.state == PreviewPoint.State.SNAP_TO_POINT):
 			current_point.connect_point(preview_point.closest_point)
 			set_current_point(preview_point.closest_point)
-			current_point.set_owner(self)
 
 	if (preview_point.state == PreviewPoint.State.HIDDEN):
 		preview_path.set_visible(false)
@@ -85,6 +83,8 @@ func _physics_process(delta):
 				color = Color(1.5, 1, 1, 0.3)
 			PreviewPoint.State.SNAP_TO_POINT:
 				color = Color(3, 3, 3, 1)
+			PreviewPoint.State.SNAP_TO_ENEMY_POINT:
+				color = Color(10, 1, 1, 1)
 
 		preview_path.modulate = color
 		preview_point.modulate = color
@@ -104,6 +104,7 @@ func abs_min_angle(angle):
 func set_current_point(point: Point):
 	current_point = point
 	position = point.position
+	current_point.set_owner(self)
 
 func get_angle_to_point(point: Point):
 	return position.angle_to_point(point.position)
