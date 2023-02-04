@@ -3,7 +3,6 @@ extends Node2D
 var rng = RandomNumberGenerator.new()
 
 func _ready():
-
 	var player = load("res://Actors/Player.tscn").instance()
 	var connector_point_scene = load("res://Objects/ConnectorPoint.tscn")
 	var resource_node_scene = load("res://Objects/ResourcePoint.tscn")
@@ -15,6 +14,7 @@ func _ready():
 		add_child(point)
 
 	add_child(player)
+	add_child(load("res://Objects/Background.tscn").instance())
 	rng.randomize()
 	for _i in range(rng.randi_range(5, 15)):
 		var resource_noce = resource_node_scene.instance()
