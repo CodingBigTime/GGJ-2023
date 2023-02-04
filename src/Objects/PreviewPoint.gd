@@ -1,7 +1,6 @@
 extends Point
 class_name PreviewPoint
 
-
 const MAXIMUM_DISTANCE = 100
 const MINIMUM_DISTANCE = 25
 const SNAP_DISTANCE = 25

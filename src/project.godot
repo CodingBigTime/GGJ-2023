@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Objects/PreviewPoint.gd"
 }, {
+"base": "Point",
+"class": "ResourcePoint",
+"language": "GDScript",
+"path": "res://Objects/ResourcePoint.gd"
+}, {
 "base": "Node2D",
 "class": "RootPath",
 "language": "GDScript",
@@ -44,6 +49,7 @@ _global_script_class_icons={
 "Player": "",
 "Point": "",
 "PreviewPoint": "",
+"ResourcePoint": "",
 "RootPath": "",
 "RootPoint": ""
 }
@@ -68,11 +74,13 @@ ui_end={
 "deadzone": 0.5,
 "events": [  ]
 }
+
 switch_node={
 "deadzone": 0.5,
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
+
 place_connector_point={
 "deadzone": 0.5,
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)

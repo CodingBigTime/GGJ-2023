@@ -4,6 +4,8 @@ class_name Player
 var current_point: Point = null
 var CONTROLLER_DEADZONE = 0.05
 
+var points = null
+
 var preview_point: PreviewPoint = null
 
 func _ready():
@@ -42,8 +44,7 @@ func _physics_process(delta):
 
 	if (Input.is_action_just_pressed("remove_node")):
 		current_point.get_connector_points()[0].remove_edges()
-
-	
+		
 	update()
 
 func _draw():
