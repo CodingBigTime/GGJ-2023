@@ -51,7 +51,7 @@ _global_script_class_icons={
 [application]
 
 config/name="GGJ2023"
-run/main_scene="res://Maps/map_1.tscn"
+run/main_scene="res://UI/Main Menu.tscn"
 config/icon="res://icon.png"
 
 [gui]
@@ -74,6 +74,8 @@ place_connector_point={
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
+
+
 
 [physics]
 
