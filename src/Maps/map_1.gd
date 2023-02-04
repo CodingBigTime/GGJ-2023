@@ -16,12 +16,14 @@ func _ready():
 
 	add_child(player)
 	rng.randomize()
-	for i in range(rng.randi_range(5, 15)):
+	for _i in range(rng.randi_range(5, 15)):
 		var resource_noce = resource_node_scene.instance()
 		add_child(resource_noce)
+		var posx = rng.randf_range(50, 1920)
+		var posy = rng.randf_range(50, 1080)
 		# 						value					cooldown
-		resource_noce.init(rng.randi_range(5, 20), rng.randf_range(1, 7))
-		resource_noce.position.x = rng.randf_range(50, 1000)
-		resource_noce.position.y = rng.randf_range(50, 1000)
+		resource_noce.init(rng.randi_range(5, 20), rng.randf_range(1, 7), Vector2(posx, posy))
+		resource_noce.position.x = posx+16
+		resource_noce.position.y = posy-16
 	player.set_current_point(connector_points[0])
 	connector_points[0].connect_point(connector_points[1])
