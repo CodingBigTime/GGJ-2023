@@ -9,11 +9,13 @@ var movement_delta = 1
 var player_id = 0
 
 var rng = RandomNumberGenerator.new()
+var rg = Range.new()
 
 onready var listener = $Listener2D
+onready var bgm = get_node("/root/Maps")
+onready var score_display = $bar
 
 var points = 21
-var score_display = Label.new()
 
 var preview_point: PreviewPoint = null
 var preview_path: PreviewPath = null
@@ -28,14 +30,19 @@ func _ready():
 	preview_point.set_visible(false)
 	preview_path.set_visible(false)
 	get_node("..").add_child(score_display)
-	score_display.set_position(Vector2(0, player_id*50))
+	score_display.set_position(Vector2(-120, 24))
+	score_display.set_tint_progress(Color(0.12549, 0.698039, 0.666667, 1))
 	start_scale_tween()
 	rng.randomize()
 	$Listener2D/root_connect.set_volume_db(-15)
+	$Listener2D/steal_enemy.set_volume_db(-5)
 	$Listener2D/root_connect.set_attenuation(2)
 	$Listener2D/new_root.set_attenuation(2)
-	$Listener2D/root_connect.set_max_distance(10000)
-	$Listener2D/new_root.set_max_distance(10000)
+	$Listener2D/steal_enemy.set_attenuation(2)
+	$Listener2D/root_connect.set_max_distance(40000)
+	$Listener2D/new_root.set_max_distance(40000)
+	$Listener2D/steal_enemy.set_max_distance(40000)
+	$bgm.play()
 
 func update_cursor(sprite: Sprite):
 	var sprite_text = load("res://assets/selected_player_"+str(player_id+1)+".png")
@@ -81,8 +88,7 @@ func _physics_process(delta):
 
 	preview_point.update_position(
 		left_stick_angle,
-		left_stick_distance if abs(left_stick_distance) > CONTROLLER_DEADZONE else 0
-	)
+		left_stick_distance if abs(left_stick_distance) > CONTROLLER_DEADZONE else 0)
 
 	preview_point.update_state(self)
 	preview_path.update_position(Vector2.ZERO, preview_point.position)
@@ -98,6 +104,7 @@ func _physics_process(delta):
 			listener.position = connector_point.position
 			$Listener2D/new_root.set_pitch_scale(rng.randf_range(0.4, 1))
 			$Listener2D/new_root.play()
+			
 			points -= 3
 		elif (preview_point.state == PreviewPoint.State.SNAP_TO_POINT) and points >= 1:
 			current_point.connect_point(preview_point.closest_point)
@@ -111,7 +118,8 @@ func _physics_process(delta):
 			var enemy = preview_point.closest_point.get_owner()
 			var is_occupied_subgraph = enemy.current_point in connected_points
 			points -= preview_point.closest_point.health_points
-
+			$Listener2D/steal_enemy.set_pitch_scale(rng.randf_range(0.4, 1))
+			$Listener2D/steal_enemy.play()
 			if not is_occupied_subgraph:
 				for point in connected_points:
 					point.set_owner(self)
@@ -122,7 +130,9 @@ func _physics_process(delta):
 					var num_connected_points = enemy.current_point.get_connection_points().size()
 					if num_connected_points == 0:
 						enemy.queue_free()
-						print("Game won by ", player_id)
+						print("Game won by player", player_id+1)
+						$bgm.stop()
+						$win.play()
 					else:
 						var random_connected = enemy.current_point.get_connection_points()[
 							randi() % num_connected_points
@@ -131,6 +141,8 @@ func _physics_process(delta):
 				preview_point.closest_point.remove_edges()
 				current_point.connect_point(preview_point.closest_point)
 				set_current_point(preview_point.closest_point)
+				
+	score_display.value = points
 
 	if (preview_point.state == PreviewPoint.State.HIDDEN):
 		preview_path.set_visible(false)
@@ -151,8 +163,6 @@ func _physics_process(delta):
 
 		preview_path.modulate = color
 		preview_point.modulate = color
-
-	score_display.set_text("Player " + str(player_id) + ": " + str(points))
 
 func update_sprite(delta):
 	var sprite = get_node("Sprite")

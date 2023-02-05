@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/enemy_steal.ogg-22b0c5e9c1c34a21c61367716112c44e.oggstr"
+
+[deps]
+
+source_file="res://assets/SFX/enemy_steal.ogg"
+dest_files=[ "res://.import/enemy_steal.ogg-22b0c5e9c1c34a21c61367716112c44e.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
