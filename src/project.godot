@@ -70,6 +70,7 @@ _global_script_class_icons={
 
 config/name="GGJ2023"
 run/main_scene="res://UI/Main Menu.tscn"
+boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [display]
@@ -126,5 +127,4 @@ common/enable_pause_aware_picking=true
 
 quality/voxel_cone_tracing/high_quality=true
 quality/filters/msaa=4
-quality/filters/use_fxaa=true
 environment/default_environment="res://default_env.tres"

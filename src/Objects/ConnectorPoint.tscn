@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Objects/ConnectorPoint.gd" type="Script" id=1]
-[ext_resource path="res://assets/Connections/blue_flower.png" type="Texture" id=2]
+[ext_resource path="res://assets/players/1.png" type="Texture" id=2]
 [ext_resource path="res://assets/spikes.png" type="Texture" id=3]
 [ext_resource path="res://Shaders/flower.gdshader" type="Shader" id=4]
 
