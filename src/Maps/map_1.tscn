@@ -25,16 +25,19 @@ __meta__ = {
 }
 
 [node name="ResourcePoint" parent="." instance=ExtResource( 2 )]
-position = Vector2( 329, 148 )
+position = Vector2( 200, 250 )
 
 [node name="ResourcePoint5" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1362, -26 )
+position = Vector2( 1720, 250 )
 
 [node name="ResourcePoint2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 556, 807 )
+position = Vector2( 500, 800 )
 
 [node name="ResourcePoint3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 977, 375 )
+position = Vector2( 960, 540 )
+scale = Vector2( 1.5, 1.5 )
+_value = 3
+_cooldown = 2
 
 [node name="ResourcePoint4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1641, 576 )
+position = Vector2( 1420, 800 )
