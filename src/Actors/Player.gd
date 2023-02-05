@@ -87,13 +87,13 @@ func _physics_process(delta):
 			get_node("..").add_child(connector_point)
 			connector_point.position = position + preview_point.position
 			connector_point.rotation = get_node("..").rng.randf_range(0, 2*PI);
-			current_point.connect_point(connector_point, player_id)
+			current_point.connect_point(connector_point)
 			set_current_point(connector_point)
 			listener.position = connector_point.position
 			$Listener2D/new_root.set_pitch_scale(rng.randf_range(0.4, 1))
 			$Listener2D/new_root.play()
 		elif (preview_point.state == PreviewPoint.State.SNAP_TO_POINT):
-			current_point.connect_point(preview_point.closest_point, player_id)
+			current_point.connect_point(preview_point.closest_point)
 			set_current_point(preview_point.closest_point)
 			listener.position = current_point.position
 			$Listener2D/root_connect.set_pitch_scale(rng.randf_range(0.4, 1))
