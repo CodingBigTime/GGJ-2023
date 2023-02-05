@@ -11,6 +11,7 @@ var players = []
 var player_bars = []
 var player_indicators = []
 onready var win_image = $win_message
+onready var bgm = $bgm
 
 func _ready():
 	var connector_points = []
@@ -56,6 +57,8 @@ func _ready():
 		player_indicators.push_back(player_indicator)
 
 	add_child(load("res://Objects/Background.tscn").instance())
+	bgm.set_volume_db(-15)
+	bgm.play()
 
 func _process(delta):
 	for i in range(num_players):
@@ -65,7 +68,7 @@ func _process(delta):
 func announce_winner(player):
 	var message = "Player " + str(player.player_id+1) + " wins!"
 	print(message)
-	$bgm.stop()
+	bgm.stop()
 	win_image.set_texture(load("res://assets/p" + str(player.player_id + 1) + "_win.png"))
 	win_image.visible = true
 	win_image.set_position(Vector2(OS.get_window_size().x/2, OS.get_window_size().y/2 - 200))
