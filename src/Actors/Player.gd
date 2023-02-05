@@ -37,8 +37,14 @@ func _ready():
 	$Listener2D/root_connect.set_max_distance(10000)
 	$Listener2D/new_root.set_max_distance(10000)
 
+func update_cursor(sprite: Sprite):
+	var sprite_text = load("res://assets/selected_player_"+str(player_id+1)+".png")
+	sprite.set_texture(sprite_text)
+	return sprite
+
 func start_scale_tween():
 	var sprite = get_node("Sprite")
+	sprite = update_cursor(sprite)
 	var tween = get_node("Tween")
 	tween.interpolate_property(sprite, "scale", scale_values[0], scale_values[1], 2.0, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	tween.connect("tween_completed", self, "on_scale_tween_completed")
@@ -149,6 +155,7 @@ func _physics_process(delta):
 
 func update_sprite(delta):
 	var sprite = get_node("Sprite")
+	sprite = update_cursor(sprite)
 	sprite.rotation += delta * 0.5
 
 func min_angle(angle):
