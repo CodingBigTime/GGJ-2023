@@ -11,7 +11,7 @@ var timer = 0
 
 func init(value, cooldown, pos):
 	_cooldown = cooldown
-	_value = int(clamp(value * cooldown, 1, 50)) 
+	_value = value 
 	get_node("..").add_child(score)
 	score.set_position(pos)
 	score.set_text(str(value) + " p/\n" + ("%.2f" % cooldown) + "s")
@@ -24,4 +24,5 @@ func _process(delta):
 			return
 		else:
 			_current_owner.points += _value
+			_current_owner.points = min(_current_owner.points, 50)
 		timer = 0

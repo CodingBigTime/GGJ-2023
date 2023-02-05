@@ -4,14 +4,14 @@ class_name Point
 var _current_owner = null
 var _connections: Dictionary = {}
 var connection_scene = load("res://Objects/RootPath.tscn")
-var health_points = 1
+var health_points = 5
 var is_spikey = false
 
 func make_spikey(point: Point):
 	if not point.has_node("SpikeSprite"):
 		return
 	point.get_node('SpikeSprite').visible = true
-	health_points = 3
+	health_points = 9
 	is_spikey = true
 
 func connect_point(point: Point):

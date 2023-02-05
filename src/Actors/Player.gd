@@ -12,7 +12,7 @@ var rng = RandomNumberGenerator.new()
 
 onready var listener = $Listener2D
 
-var points = 0
+var points = 21
 var score_display = Label.new()
 
 var preview_point: PreviewPoint = null
@@ -82,7 +82,7 @@ func _physics_process(delta):
 	preview_path.update_position(Vector2.ZERO, preview_point.position)
 
 	if (Input.is_action_just_pressed("place_connector_point_p" + str(player_id+1))):
-		if (preview_point.state == PreviewPoint.State.VALID_NEW_POINT):
+		if (preview_point.state == PreviewPoint.State.VALID_NEW_POINT) and points >= 3:
 			var connector_point = load("res://Objects/ConnectorPoint.tscn").instance()
 			get_node("..").add_child(connector_point)
 			connector_point.position = position + preview_point.position
@@ -92,13 +92,15 @@ func _physics_process(delta):
 			listener.position = connector_point.position
 			$Listener2D/new_root.set_pitch_scale(rng.randf_range(0.4, 1))
 			$Listener2D/new_root.play()
-		elif (preview_point.state == PreviewPoint.State.SNAP_TO_POINT):
+			points -= 3
+		elif (preview_point.state == PreviewPoint.State.SNAP_TO_POINT) and points >= 3:
 			current_point.connect_point(preview_point.closest_point)
 			set_current_point(preview_point.closest_point)
 			listener.position = current_point.position
 			$Listener2D/root_connect.set_pitch_scale(rng.randf_range(0.4, 1))
 			$Listener2D/root_connect.play()
-		elif (preview_point.state == PreviewPoint.State.SNAP_TO_ENEMY_POINT):
+			points -= 3
+		elif (preview_point.state == PreviewPoint.State.SNAP_TO_ENEMY_POINT) and points >= preview_point.closest_point.health_points:
 			var is_unoccupied_subgraph = true
 			var connected_points = preview_point.closest_point.get_all_connected_points()
 			var players = []
@@ -111,6 +113,7 @@ func _physics_process(delta):
 				if (enemy.current_point in connected_points):
 					is_unoccupied_subgraph = false
 					break
+			points -= preview_point.closest_point.health_points
 
 			if is_unoccupied_subgraph:
 				for point in connected_points:
