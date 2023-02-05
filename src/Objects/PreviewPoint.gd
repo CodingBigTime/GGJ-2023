@@ -61,7 +61,7 @@ func update_state(player):
 				intersecting_segments.push_back([point, point2])
 				state = State.INVALID_NEW_POINT
 
-	var closest_distance = 1000000.0
+	var closest_distance = INF
 	var new_snap = false
 	
 	for point in all_points:
@@ -100,7 +100,7 @@ func update_state(player):
 	
 	state = State.VALID_NEW_POINT
 
-func make_spikey(point):
+func make_spikey():
 	pass
 
 func set_visible(visible: bool):

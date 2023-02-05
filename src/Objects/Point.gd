@@ -7,10 +7,10 @@ var connection_scene = load("res://Objects/RootPath.tscn")
 var health_points = 5
 var is_spikey = false
 
-func make_spikey(point: Point):
-	if not point.has_node("SpikeSprite"):
+func make_spikey():
+	if not has_node("SpikeSprite"):
 		return
-	point.get_node('SpikeSprite').visible = true
+	get_node('SpikeSprite').visible = true
 	health_points = 9
 	is_spikey = true
 
@@ -18,10 +18,8 @@ func connect_point(point: Point):
 	var root_path = create_edge(point)
 	_connections[point] = root_path
 	point._connections[self] = root_path
-	if "score" in self:
-		point.make_spikey(point)
-	elif "score" in point:
-		make_spikey(self)
+	point.make_spikey()
+	make_spikey()
 
 func create_edge(point: Point):
 	var connection = connection_scene.instance()
