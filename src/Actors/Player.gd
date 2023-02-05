@@ -107,26 +107,27 @@ func _physics_process(delta):
 			$Listener2D/root_connect.play()
 			points -= 1
 		elif (preview_point.state == PreviewPoint.State.SNAP_TO_ENEMY_POINT) and points >= preview_point.closest_point.health_points:
-			var is_unoccupied_subgraph = true
 			var connected_points = preview_point.closest_point.get_all_connected_points()
-			var players = []
-			for node in get_node("..").get_children():
-				if "player_id" in node:
-					players.push_back(node)
-			for enemy in players:
-				if (self == enemy):
-					continue
-				if (enemy.current_point in connected_points):
-					is_unoccupied_subgraph = false
-					break
+			var enemy = preview_point.closest_point.get_owner()
+			var is_occupied_subgraph = enemy.current_point in connected_points
 			points -= preview_point.closest_point.health_points
 
-			if is_unoccupied_subgraph:
+			if not is_occupied_subgraph:
 				for point in connected_points:
 					point.set_owner(self)
 				current_point.connect_point(preview_point.closest_point)
 				set_current_point(preview_point.closest_point)
 			else:
+				if (preview_point.closest_point == enemy.current_point):
+					var num_connected_points = enemy.current_point.get_connection_points().size()
+					if num_connected_points == 0:
+						enemy.queue_free()
+						print("Game won by ", player_id)
+					else:
+						var random_connected = enemy.current_point.get_connection_points()[
+							randi() % num_connected_points
+						]
+						enemy.set_current_point(random_connected)
 				preview_point.closest_point.remove_edges()
 				current_point.connect_point(preview_point.closest_point)
 				set_current_point(preview_point.closest_point)
