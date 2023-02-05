@@ -7,12 +7,32 @@ var connection_scene = load("res://Objects/RootPath.tscn")
 var health_points = 5
 var is_spiky = false
 
+var scale_values = [Vector2(0.85, 0.85), Vector2(1.1,1.1)]
+var tween = null
+var tween_increasing = false
+
+func _ready():
+	tween = Tween.new()
+	add_child(tween)
+
+func start_spike_tween():
+	var sprite = get_node("SpikeSprite")
+	tween.interpolate_property(sprite, "scale", scale_values[0], scale_values[1], 0.5, Tween.TRANS_SINE, Tween.EASE_OUT if tween_increasing else Tween.EASE_IN)
+	tween.connect("tween_completed", self, "on_spike_tween_completed")
+	tween.start()
+
+func on_spike_tween_completed(object, key):
+	scale_values.invert()
+	tween_increasing = !tween_increasing
+	start_spike_tween()
+
 func make_spiky():
 	if not has_node("SpikeSprite"):
 		return
 	get_node('SpikeSprite').visible = true
 	health_points = 9
 	is_spiky = true
+	start_spike_tween()
 
 func connect_point(point: Point):
 	var root_path = create_edge(point)
