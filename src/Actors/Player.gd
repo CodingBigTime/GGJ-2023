@@ -93,13 +93,13 @@ func _physics_process(delta):
 			$Listener2D/new_root.set_pitch_scale(rng.randf_range(0.4, 1))
 			$Listener2D/new_root.play()
 			points -= 3
-		elif (preview_point.state == PreviewPoint.State.SNAP_TO_POINT) and points >= 3:
+		elif (preview_point.state == PreviewPoint.State.SNAP_TO_POINT) and points >= 1:
 			current_point.connect_point(preview_point.closest_point)
 			set_current_point(preview_point.closest_point)
 			listener.position = current_point.position
 			$Listener2D/root_connect.set_pitch_scale(rng.randf_range(0.4, 1))
 			$Listener2D/root_connect.play()
-			points -= 3
+			points -= 1
 		elif (preview_point.state == PreviewPoint.State.SNAP_TO_ENEMY_POINT) and points >= preview_point.closest_point.health_points:
 			var is_unoccupied_subgraph = true
 			var connected_points = preview_point.closest_point.get_all_connected_points()

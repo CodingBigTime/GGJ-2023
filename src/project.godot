@@ -124,4 +124,7 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/voxel_cone_tracing/high_quality=true
+quality/filters/msaa=4
+quality/filters/use_fxaa=true
 environment/default_environment="res://default_env.tres"
