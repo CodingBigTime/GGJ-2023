@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Actors/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/selected.png" type="Texture" id=2]
@@ -7,9 +7,6 @@
 [ext_resource path="res://assets/SFX/enemy_steal.ogg" type="AudioStream" id=5]
 [ext_resource path="res://assets/SFX/bgm.mp3" type="AudioStream" id=6]
 [ext_resource path="res://assets/SFX/win.ogg" type="AudioStream" id=7]
-[ext_resource path="res://assets/bar_under.png" type="Texture" id=8]
-[ext_resource path="res://assets/bar_center.png" type="Texture" id=9]
-[ext_resource path="res://assets/bar_over.png" type="Texture" id=10]
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -42,11 +39,3 @@ volume_db = -30.0
 
 [node name="win" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-
-[node name="bar" type="TextureProgress" parent="."]
-margin_right = 241.0
-margin_bottom = 14.0
-max_value = 50.0
-texture_under = ExtResource( 8 )
-texture_over = ExtResource( 10 )
-texture_progress = ExtResource( 9 )

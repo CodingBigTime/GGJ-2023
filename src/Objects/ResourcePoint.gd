@@ -18,10 +18,9 @@ func init(value, cooldown, pos):
 
 func _process(delta):
 	timer += delta
+	if not is_instance_valid(_current_owner):
+		return
 	if timer >= _cooldown:
-		if _current_owner == null:
-			return
-		else:
-			_current_owner.points += _value
-			_current_owner.points = min(_current_owner.points, 50)
+		_current_owner.points += _value
+		_current_owner.points = min(_current_owner.points, 50)
 		timer = 0

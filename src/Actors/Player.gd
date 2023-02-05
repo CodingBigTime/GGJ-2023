@@ -13,7 +13,6 @@ var rg = Range.new()
 
 onready var listener = $Listener2D
 onready var bgm = get_node("/root/Maps")
-onready var score_display = $bar
 
 var points = 21
 
@@ -38,9 +37,6 @@ func _ready():
 	add_child(preview_path)
 	preview_point.set_visible(false)
 	preview_path.set_visible(false)
-	get_node("..").add_child(score_display)
-	score_display.set_position(Vector2(-120, 24))
-	score_display.set_tint_progress(Color(0.12549, 0.698039, 0.666667, 1))
 	start_scale_tween()
 	rng.randomize()
 	$Listener2D/root_connect.set_volume_db(-15)
@@ -168,7 +164,6 @@ func _physics_process(delta):
 				set_current_point(preview_point.closest_point)
 				if (_bfs_effect_active):
 					_bfs_effect_array = current_point.get_all_connected_points_bfs()
-	score_display.value = points
 
 	if (preview_point.state == PreviewPoint.State.HIDDEN):
 		preview_path.set_visible(false)
@@ -208,3 +203,6 @@ func set_current_point(point: Point):
 
 func get_angle_to_point(point: Point):
 	return position.angle_to_point(point.position)
+
+func get_points():
+	return points
