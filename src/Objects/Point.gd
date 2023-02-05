@@ -77,6 +77,9 @@ func set_owner(player):
 	_current_owner = player
 	if not '_cooldown' in self:
 		set_texture(_current_owner)
+	var connection_texture = load("res://assets/Connections/player_"+str(_current_owner.player_id + 1)+"_vine.png")
+	for edge in _connections.values():
+		edge.get_node("Sprite").set_texture(connection_texture)
 
 func set_texture(player):
 	var player_texture = load("res://assets/players/" + str(player.player_id + 1) + ".png")
