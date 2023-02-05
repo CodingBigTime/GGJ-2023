@@ -2,7 +2,7 @@ extends Point
 class_name PreviewPoint
 
 export var MAXIMUM_DISTANCE = 150
-export var MINIMUM_DISTANCE = 70
+export var MINIMUM_DISTANCE = 50
 export var SNAP_DISTANCE = 35
 
 enum State {
