@@ -1,12 +1,11 @@
 extends Node2D
 
-var rng = RandomNumberGenerator.new()
 var num_players = 2
+var resource_point_scene = load("res://Objects/ResourcePoint.tscn")
+var connector_point_scene = load("res://Objects/ConnectorPoint.tscn")
+var player_scene = load("res://Actors/Player.tscn")
 
 func _ready():
-	var player_scene = load("res://Actors/Player.tscn")
-	var connector_point_scene = load("res://Objects/ConnectorPoint.tscn")
-	var resource_point_scene = load("res://Objects/ResourcePoint.tscn")
 	var connector_points = []
 
 	var players = []
@@ -31,13 +30,3 @@ func _ready():
 		add_child(players[i])
 
 	add_child(load("res://Objects/Background.tscn").instance())
-	rng.randomize()
-
-	for _i in range(rng.randi_range(5, 15)):
-		var resource_point = resource_point_scene.instance()
-		add_child(resource_point)
-		var posx = rng.randf_range(50, 1870)
-		var posy = rng.randf_range(50, 1030)
-		resource_point.init(rng.randi_range(2, 4), rng.randf_range(1, 3), Vector2(posx, posy))
-		resource_point.position.x = posx+16
-		resource_point.position.y = posy-16

@@ -1,9 +1,8 @@
 extends Point
 class_name ResourcePoint
 
-var _value = 1
-var _cooldown = 1
-var _amount = 10
+export var _value = 1
+export var _cooldown = 1
 
 var score = Label.new()
 
