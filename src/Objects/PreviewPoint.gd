@@ -100,7 +100,7 @@ func update_state(player):
 	
 	state = State.VALID_NEW_POINT
 
-func make_spikey():
+func make_spiky():
 	pass
 
 func set_visible(visible: bool):

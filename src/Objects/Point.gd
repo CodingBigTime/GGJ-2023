@@ -5,21 +5,23 @@ var _current_owner = null
 var _connections: Dictionary = {}
 var connection_scene = load("res://Objects/RootPath.tscn")
 var health_points = 5
-var is_spikey = false
+var is_spiky = false
 
-func make_spikey():
+func make_spiky():
 	if not has_node("SpikeSprite"):
 		return
 	get_node('SpikeSprite').visible = true
 	health_points = 9
-	is_spikey = true
+	is_spiky = true
 
 func connect_point(point: Point):
 	var root_path = create_edge(point)
 	_connections[point] = root_path
 	point._connections[self] = root_path
-	point.make_spikey()
-	make_spikey()
+	if "score" in self:
+		point.make_spiky()
+	elif "score" in point:
+		make_spiky()
 
 func create_edge(point: Point):
 	var connection = connection_scene.instance()
