@@ -15,7 +15,6 @@
 [ext_resource path="res://assets/Buttons/left_joystick.png" type="Texture" id=13]
 
 [sub_resource type="StreamTexture" id=1]
-flags = 4
 load_path = "res://.import/start_button_normal.png-3660f40c590a6da5c24f73189b54b198.stex"
 
 [node name="MarginContainer" type="MarginContainer"]
@@ -41,17 +40,10 @@ size_flags_vertical = 3
 custom_constants/separation = 40
 alignment = 1
 
-[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer"]
-margin_top = 283.0
-margin_right = 620.0
-margin_bottom = 297.0
-text = "Spread"
-uppercase = true
-
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer"]
-margin_top = 337.0
+margin_top = 310.0
 margin_right = 320.0
-margin_bottom = 469.0
+margin_bottom = 442.0
 size_flags_horizontal = 0
 
 [node name="StartButton" type="TextureButton" parent="HSplitContainer/VBoxContainer/VBoxContainer"]
@@ -84,9 +76,9 @@ stream = ExtResource( 10 )
 stream = ExtResource( 9 )
 
 [node name="Label2" type="Label" parent="HSplitContainer/VBoxContainer"]
-margin_top = 509.0
+margin_top = 482.0
 margin_right = 620.0
-margin_bottom = 557.0
+margin_bottom = 530.0
 text = "v0.1
 Created for Global Gamejam 2023
 Macedonia"
@@ -98,36 +90,37 @@ margin_bottom = 840.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/CenterContainer"]
 margin_left = 246.0
-margin_top = 337.0
+margin_top = 119.0
 margin_right = 894.0
-margin_bottom = 503.0
+margin_bottom = 721.0
 alignment = 1
 
-[node name="Logo" type="TextureRect" parent="HSplitContainer/CenterContainer/VBoxContainer"]
+[node name="TextureRect4" type="TextureRect" parent="HSplitContainer/CenterContainer/VBoxContainer"]
 margin_right = 648.0
-margin_bottom = 64.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 500, 500 )
 texture = ExtResource( 2 )
-stretch_mode = 4
+expand = true
 
 [node name="TextureRect" type="TextureRect" parent="HSplitContainer/CenterContainer/VBoxContainer"]
-margin_top = 68.0
+margin_top = 504.0
 margin_right = 648.0
-margin_bottom = 98.0
+margin_bottom = 534.0
 texture = ExtResource( 12 )
 stretch_mode = 6
 
 [node name="TextureRect2" type="TextureRect" parent="HSplitContainer/CenterContainer/VBoxContainer"]
-margin_top = 102.0
+margin_top = 538.0
 margin_right = 648.0
-margin_bottom = 132.0
+margin_bottom = 568.0
 rect_pivot_offset = Vector2( 218, 69 )
 texture = ExtResource( 11 )
 stretch_mode = 6
 
 [node name="TextureRect3" type="TextureRect" parent="HSplitContainer/CenterContainer/VBoxContainer"]
-margin_top = 136.0
+margin_top = 572.0
 margin_right = 648.0
-margin_bottom = 166.0
+margin_bottom = 602.0
 rect_pivot_offset = Vector2( 218, 69 )
 texture = ExtResource( 13 )
 stretch_mode = 6
