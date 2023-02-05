@@ -8,6 +8,8 @@ var health_points = 1
 var is_spikey = false
 
 func make_spikey(point: Point):
+	if not point.has_node("SpikeSprite"):
+		return
 	point.get_node('SpikeSprite').visible = true
 	health_points = 3
 	is_spikey = true
