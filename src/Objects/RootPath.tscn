@@ -6,8 +6,8 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
-shader_param/amplitude = 3.0
-shader_param/speed = 1.25
+shader_param/amplitude = 3.4
+shader_param/speed = 1.5
 
 [node name="RootPath" type="Node2D"]
 script = ExtResource( 1 )
