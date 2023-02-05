@@ -98,6 +98,15 @@ func update_state(player):
 		state = State.INVALID_NEW_POINT
 		return
 	
+	var world_position = player.position + position
+	if (
+		world_position.x < 0
+		or world_position.x > OS.get_window_size().x
+		or world_position.y < 0
+		or world_position.y > OS.get_window_size().y
+	):
+		state = State.INVALID_NEW_POINT
+		return
 	state = State.VALID_NEW_POINT
 
 func make_spiky():
