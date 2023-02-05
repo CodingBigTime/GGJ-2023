@@ -17,10 +17,19 @@ onready var score_display = $bar
 
 var points = 21
 
+var _passive_points_timer = 0.0
+export var _passive_points_amount = 1
+export var _passive_points_cooldown = 2
+
 var preview_point: PreviewPoint = null
 var preview_path: PreviewPath = null
 
 var scale_values = [Vector2(1.5, 1.5), Vector2(2,2)]
+
+var _bfs_effect_active = false
+var _bfs_effect_timer = 0.0
+var _bfs_effect_array = []
+var _bfs_effect_depth = 0
 
 func _ready():
 	preview_point = load("res://Objects/PreviewPoint.tscn").instance()
@@ -70,7 +79,22 @@ func _physics_process(delta):
 
 	movement_delta += delta
 
+	_passive_points_timer += delta
+
+	if (_passive_points_timer >= _passive_points_cooldown):
+		_passive_points_timer -= _passive_points_cooldown
+		points += _passive_points_amount
+
 	update_sprite(delta)
+
+	if (_bfs_effect_active and _bfs_effect_array.size() > 0):
+		_bfs_effect_timer += delta
+		if (_bfs_effect_timer >= 0.1):
+			_bfs_effect_timer -= 0.1
+			while (_bfs_effect_array.size() > 0 and _bfs_effect_array[0][1] == _bfs_effect_depth):
+				var point = _bfs_effect_array.pop_front()[0]
+				point.modulate = Color(1.72, 1.72, 1.72, 1)
+			_bfs_effect_depth += 1
 
 	if(abs(right_stick_distance) > CONTROLLER_DEADZONE):
 		var connected_points = current_point.get_connection_points()
@@ -114,7 +138,7 @@ func _physics_process(delta):
 			$Listener2D/root_connect.play()
 			points -= 1
 		elif (preview_point.state == PreviewPoint.State.SNAP_TO_ENEMY_POINT) and points >= preview_point.closest_point.health_points:
-			var connected_points = preview_point.closest_point.get_all_connected_points()
+			var connected_points = preview_point.closest_point.get_all_connected_points_dfs()
 			var enemy = preview_point.closest_point.get_owner()
 			var is_occupied_subgraph = enemy.current_point in connected_points
 			points -= preview_point.closest_point.health_points
@@ -133,6 +157,7 @@ func _physics_process(delta):
 						print("Game won by player", player_id+1)
 						$bgm.stop()
 						$win.play()
+						_bfs_effect_active = true
 					else:
 						var random_connected = enemy.current_point.get_connection_points()[
 							randi() % num_connected_points
@@ -141,7 +166,8 @@ func _physics_process(delta):
 				preview_point.closest_point.remove_edges()
 				current_point.connect_point(preview_point.closest_point)
 				set_current_point(preview_point.closest_point)
-				
+				if (_bfs_effect_active):
+					_bfs_effect_array = current_point.get_all_connected_points_bfs()
 	score_display.value = points
 
 	if (preview_point.state == PreviewPoint.State.HIDDEN):

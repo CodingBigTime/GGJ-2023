@@ -85,7 +85,7 @@ func set_texture(player):
 func get_owner():
 	return _current_owner
 
-func get_all_connected_points():
+func get_all_connected_points_dfs():
 	var stack = []
 	var visited = {}
 	var points = []
@@ -98,4 +98,20 @@ func get_all_connected_points():
 		points.append(point)
 		for connected_point in point.get_connection_points():
 			stack.append(connected_point)
+	return points
+
+func get_all_connected_points_bfs():
+	var queue = [[self, 0]]
+	var visited = {}
+	var points = []
+	while queue.size() > 0:
+		var t = queue.pop_front()
+		var point = t[0]
+		var depth = t[1]
+		if point in visited:
+			continue
+		points.push_back([point, depth])
+		visited[point] = true
+		for connected_point in point.get_connection_points():
+			queue.push_back([connected_point, depth + 1])
 	return points
