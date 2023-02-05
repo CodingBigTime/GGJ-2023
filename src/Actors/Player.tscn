@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Actors/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/selected.png" type="Texture" id=2]
 [ext_resource path="res://assets/SFX/new_root.ogg" type="AudioStream" id=3]
 [ext_resource path="res://assets/SFX/root_connect.ogg" type="AudioStream" id=4]
 [ext_resource path="res://assets/SFX/enemy_steal.ogg" type="AudioStream" id=5]
-[ext_resource path="res://assets/SFX/bgm.mp3" type="AudioStream" id=6]
-[ext_resource path="res://assets/SFX/win.ogg" type="AudioStream" id=7]
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -32,10 +30,3 @@ stream = ExtResource( 4 )
 
 [node name="steal_enemy" type="AudioStreamPlayer2D" parent="Listener2D"]
 stream = ExtResource( 5 )
-
-[node name="bgm" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
-volume_db = -30.0
-
-[node name="win" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )

@@ -8,6 +8,7 @@ var player_bar_scene = load("res://Objects/PlayerBar.tscn")
 
 var players = []
 var player_bars = []
+onready var win_image = $win_message
 
 func _ready():
 	var connector_points = []
@@ -52,3 +53,12 @@ func _process(delta):
 	for i in range(num_players):
 		if is_instance_valid(players[i]):
 			player_bars[i].value = players[i].get_points()
+
+func announce_winner(player):
+	var message = "Player " + str(player.player_id+1) + " wins!"
+	print(message)
+	$bgm.stop()
+	win_image.set_texture(load("res://assets/p" + str(player.player_id + 1) + "_win.png"))
+	win_image.visible = true
+	win_image.set_position(Vector2(OS.get_window_size().x/2, OS.get_window_size().y/2 - 200))
+	$win.play()

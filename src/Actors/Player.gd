@@ -12,7 +12,6 @@ var rng = RandomNumberGenerator.new()
 var rg = Range.new()
 
 onready var listener = $Listener2D
-onready var bgm = get_node("/root/Maps")
 
 var points = 21
 
@@ -47,7 +46,6 @@ func _ready():
 	$Listener2D/root_connect.set_max_distance(40000)
 	$Listener2D/new_root.set_max_distance(40000)
 	$Listener2D/steal_enemy.set_max_distance(40000)
-	$bgm.play()
 
 func update_cursor(sprite: Sprite):
 	var sprite_text = load("res://assets/selected_player_"+str(player_id+1)+".png")
@@ -149,10 +147,8 @@ func _physics_process(delta):
 				if (preview_point.closest_point == enemy.current_point):
 					var num_connected_points = enemy.current_point.get_connection_points().size()
 					if num_connected_points == 0:
+						get_parent().announce_winner(self)
 						enemy.queue_free()
-						print("Game won by player", player_id+1)
-						$bgm.stop()
-						$win.play()
 						_bfs_effect_active = true
 					else:
 						var random_connected = enemy.current_point.get_connection_points()[
