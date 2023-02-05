@@ -1,9 +1,9 @@
 extends Point
 class_name PreviewPoint
 
-const MAXIMUM_DISTANCE = 100
-const MINIMUM_DISTANCE = 25
-const SNAP_DISTANCE = 25
+export var MAXIMUM_DISTANCE = 150
+export var MINIMUM_DISTANCE = 70
+export var SNAP_DISTANCE = 35
 
 enum State {
 	HIDDEN,
