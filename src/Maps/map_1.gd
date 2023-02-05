@@ -36,8 +36,8 @@ func _ready():
 	for _i in range(rng.randi_range(5, 15)):
 		var resource_point = resource_point_scene.instance()
 		add_child(resource_point)
-		var posx = rng.randf_range(50, 1920)
-		var posy = rng.randf_range(50, 1080)
-		resource_point.init(rng.randi_range(5, 20), rng.randf_range(1, 7), Vector2(posx, posy))
+		var posx = rng.randf_range(50, 1870)
+		var posy = rng.randf_range(50, 1030)
+		resource_point.init(rng.randi_range(2, 4), rng.randf_range(1, 3), Vector2(posx, posy))
 		resource_point.position.x = posx+16
 		resource_point.position.y = posy-16
