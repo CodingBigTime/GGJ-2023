@@ -5,7 +5,6 @@ var resource_point_scene = load("res://Objects/ResourcePoint.tscn")
 var connector_point_scene = load("res://Objects/ConnectorPoint.tscn")
 var player_scene = load("res://Actors/Player.tscn")
 var player_bar_scene = load("res://Objects/PlayerBar.tscn")
-var player_indicator_scene = load("res://Objects/PlayerIndicator.tscn")
 
 var players = []
 var player_bars = []
@@ -32,8 +31,8 @@ func _ready():
 		players[i].set_current_point(connector_points[i])
 
 		var player_bar = player_bar_scene.instance()
-		var player_indicator = player_indicator_scene.instance()
-		player_indicator.get_node("Sprite").set_texture(load("res://assets/p" + str(i+1) + "_indicator.png"))
+		var player_indicator = Sprite.new()
+		player_indicator.set_texture(load("res://assets/p" + str(i+1) + "_indicator.png"))
 		if(i == 0):
 			var color = Color(0.25, 0.7, 0.13, 1)
 			player_bar.set_tint_progress(color)
@@ -45,7 +44,7 @@ func _ready():
 			player_bar.set_tint_progress(color)
 			player_bar.set_tint_over(color)
 			player_bar.set_position(Vector2(OS.get_window_size().x - player_bar.get_size().x * 2 - 32, 32))
-			player_indicator.set_position(Vector2(OS.get_window_size().x - player_indicator.get_node("Sprite").get_texture().get_size().x, 96))
+			player_indicator.set_position(Vector2(OS.get_window_size().x - player_indicator.get_texture().get_size().x, 96))
 
 		connector_points[i].set_owner(players[i])
 		connector_points[i].set_texture(players[i])
@@ -56,7 +55,6 @@ func _ready():
 		player_bars.push_back(player_bar)
 		player_indicators.push_back(player_indicator)
 
-	add_child(load("res://Objects/Background.tscn").instance())
 	bgm.set_volume_db(-15)
 	bgm.play()
 

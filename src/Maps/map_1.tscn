@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Maps/map_1.gd" type="Script" id=1]
 [ext_resource path="res://Objects/ResourcePoint.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/SFX/win.ogg" type="AudioStream" id=3]
 [ext_resource path="res://assets/SFX/bgm.mp3" type="AudioStream" id=4]
+[ext_resource path="res://assets/background.png" type="Texture" id=5]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -54,3 +55,8 @@ volume_db = -30.0
 [node name="win_message" type="Sprite" parent="."]
 visible = false
 scale = Vector2( 4, 4 )
+
+[node name="background" type="Sprite" parent="."]
+z_index = -10
+texture = ExtResource( 5 )
+centered = false
