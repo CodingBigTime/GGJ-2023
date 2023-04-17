@@ -12,13 +12,13 @@ var tween = null
 var tween_increasing = false
 
 func _ready():
-	tween = Tween.new()
-	add_child(tween)
+	tween = get_tree().create_tween()
+#	add_child(tween)
 
 func start_spike_tween():
 	var sprite = get_node("SpikeSprite")
 	tween.interpolate_property(sprite, "scale", scale_values[0], scale_values[1], 0.5, Tween.TRANS_SINE, Tween.EASE_OUT if tween_increasing else Tween.EASE_IN)
-	tween.connect("tween_completed", self, "on_spike_tween_completed")
+	tween.connect("finished", Callable(self, "on_spike_tween_completed"))
 	tween.start()
 
 func on_spike_tween_completed(object, key):
@@ -44,10 +44,10 @@ func connect_point(point: Point):
 		make_spiky()
 
 func create_edge(point: Point):
-	var connection = connection_scene.instance()
-	var player_id = get_owner().player_id
+	var connection = connection_scene.instantiate()
+	var player_id = get_player_owner().player_id
 	var connection_texture = load("res://assets/Connections/player_"+str(player_id+1)+"_vine.png")
-	connection.get_node("Sprite").set_texture(connection_texture)
+	connection.get_node("Sprite2D").set_texture(connection_texture)
 	get_node("..").add_child(connection)
 	connection.update_position(position, point.position)
 	return connection
@@ -73,19 +73,19 @@ func get_connection_path(key):
 	if is_instance_valid(_connections[key]):
 		return _connections[key]
 
-func set_owner(player):
+func set_player_owner(player):
 	_current_owner = player
 	if not '_cooldown' in self:
 		set_texture(_current_owner)
 	var connection_texture = load("res://assets/Connections/player_"+str(_current_owner.player_id + 1)+"_vine.png")
 	for edge in _connections.values():
-		edge.get_node("Sprite").set_texture(connection_texture)
+		edge.get_node("Sprite2D").set_texture(connection_texture)
 
 func set_texture(player):
 	var player_texture = load("res://assets/players/" + str(player.player_id + 1) + ".png")
-	get_node('Sprite').set_texture(player_texture)
+	get_node('Sprite2D').set_texture(player_texture)
 
-func get_owner():
+func get_player_owner():
 	return _current_owner
 
 func get_all_connected_points_dfs():

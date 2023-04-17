@@ -1,8 +1,8 @@
 extends Point
 class_name ResourcePoint
 
-export var _value = 1
-export var _cooldown = 1
+@export var _value = 1
+@export var _cooldown = 1
 
 var score = Label.new()
 
@@ -14,7 +14,8 @@ func init(value, cooldown, pos):
 	get_node("..").add_child(score)
 	score.set_position(pos)
 	score.set_text(str(value) + " p/\n" + ("%.2f" % cooldown) + "s")
-	score.set_align(Label.ALIGN_CENTER)
+	score.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	score.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 
 func _process(delta):
 	timer += delta

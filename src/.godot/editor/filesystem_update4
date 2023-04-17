@@ -1,0 +1,10 @@
+res://default_env.tres
+res://UI/Main Menu.tscn
+res://Objects/ResourcePoint.gd
+res://Maps/map_1.gd
+res://Actors/Player.gd
+res://Objects/Point.gd
+res://Objects/PreviewPoint.gd
+res://Objects/RootPath.gd
+res://UI/MainMenu.gd
+res://Actors/Player.tscn

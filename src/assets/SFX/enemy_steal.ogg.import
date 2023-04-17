@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/enemy_steal.ogg-22b0c5e9c1c34a21c61367716112c44e.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b3eo3qep7gdbt"
+path="res://.godot/imported/enemy_steal.ogg-22b0c5e9c1c34a21c61367716112c44e.oggvorbisstr"
 
 [deps]
 
 source_file="res://assets/SFX/enemy_steal.ogg"
-dest_files=[ "res://.import/enemy_steal.ogg-22b0c5e9c1c34a21c61367716112c44e.oggstr" ]
+dest_files=["res://.godot/imported/enemy_steal.ogg-22b0c5e9c1c34a21c61367716112c44e.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

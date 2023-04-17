@@ -1,9 +1,9 @@
 extends Point
 class_name PreviewPoint
 
-export var MAXIMUM_DISTANCE = 150
-export var MINIMUM_DISTANCE = 50
-export var SNAP_DISTANCE = 35
+@export var MAXIMUM_DISTANCE = 150
+@export var MINIMUM_DISTANCE = 50
+@export var SNAP_DISTANCE = 35
 
 enum State {
 	HIDDEN,
@@ -101,9 +101,9 @@ func update_state(player):
 	var world_position = player.position + position
 	if (
 		world_position.x < 0
-		or world_position.x > OS.get_window_size().x
+		or world_position.x > get_window().get_size().x
 		or world_position.y < 0
-		or world_position.y > OS.get_window_size().y
+		or world_position.y > get_window().get_size().y
 	):
 		state = State.INVALID_NEW_POINT
 		return
@@ -112,5 +112,5 @@ func update_state(player):
 func make_spiky():
 	pass
 
-func set_visible(visible: bool):
-	get_node("Sprite").visible = visible
+#func set_visible(visible: bool):
+#	get_node("Sprite2D").visible = visible
