@@ -39,22 +39,22 @@ ui_end={
 }
 place_connector_point_p1={
 "deadzone": 0.5,
-"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":5,"pressure":0.0,"pressed":false,"script":null)
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
 place_connector_point_p2={
 "deadzone": 0.5,
-"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":1,"button_index":5,"pressure":0.0,"pressed":false,"script":null)
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":1,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
 place_connector_point_p3={
 "deadzone": 0.5,
-"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":2,"button_index":5,"pressure":0.0,"pressed":false,"script":null)
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":2,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
 place_connector_point_p4={
 "deadzone": 0.5,
-"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":3,"button_index":5,"pressure":0.0,"pressed":false,"script":null)
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":3,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
 remove_node={

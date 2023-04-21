@@ -85,7 +85,8 @@ func update_state(player):
 			if distance < closest_distance:
 				closest_distance = distance
 				closest_point = point
-			if (player == point.get_owner() or point.get_owner() == null):
+
+			if (player == point.get_player_owner() or point.get_player_owner() == null):
 				state = State.SNAP_TO_POINT
 			else:
 				state = State.SNAP_TO_ENEMY_POINT

@@ -3,7 +3,7 @@ class_name RootPath
 
 
 func update_position(start:Vector2, end:Vector2) -> void:
-	var angle = start.angle_to_point(end)
+	var angle = end.angle_to_point(start)
 	position = end
 	rotation = angle
 	var sprite = get_node("Sprite2D");

@@ -134,7 +134,7 @@ func _physics_process(delta):
 			points -= 1
 		elif (preview_point.state == PreviewPoint.State.SNAP_TO_ENEMY_POINT) and points >= preview_point.closest_point.health_points:
 			var connected_points = preview_point.closest_point.get_all_connected_points_dfs()
-			var enemy = preview_point.closest_point.get_owner()
+			var enemy = preview_point.closest_point.get_player_owner()
 			var is_occupied_subgraph = enemy.current_point in connected_points
 			points -= preview_point.closest_point.health_points
 			$AudioListener2D/steal_enemy.set_pitch_scale(rng.randf_range(0.4, 1))
