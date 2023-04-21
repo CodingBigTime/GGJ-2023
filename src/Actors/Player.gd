@@ -110,7 +110,7 @@ func _physics_process(delta):
 			var min_angle = 1000
 			for point in connected_points:
 				var current_angle = Utils.get_abs_angle_difference(
-					-point.position.angle_to_point(current_point.position), right_stick_angle
+					-current_point.position.angle_to_point(point.position), right_stick_angle
 				)
 				if current_angle < min_angle && current_angle < MOVEMENT_LIMIT:
 					closest_point = point
