@@ -6,75 +6,22 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "Point",
-"class": "ConnectorPoint",
-"language": "GDScript",
-"path": "res://Objects/ConnectorPoint.gd"
-}, {
-"base": "Node2D",
-"class": "Player",
-"language": "GDScript",
-"path": "res://Actors/Player.gd"
-}, {
-"base": "Node2D",
-"class": "Point",
-"language": "GDScript",
-"path": "res://Objects/Point.gd"
-}, {
-"base": "RootPath",
-"class": "PreviewPath",
-"language": "GDScript",
-"path": "res://Objects/PreviewPath.gd"
-}, {
-"base": "Point",
-"class": "PreviewPoint",
-"language": "GDScript",
-"path": "res://Objects/PreviewPoint.gd"
-}, {
-"base": "Point",
-"class": "ResourcePoint",
-"language": "GDScript",
-"path": "res://Objects/ResourcePoint.gd"
-}, {
-"base": "Node2D",
-"class": "RootPath",
-"language": "GDScript",
-"path": "res://Objects/RootPath.gd"
-}, {
-"base": "Node",
-"class": "Utils",
-"language": "GDScript",
-"path": "res://Utils.gd"
-} ]
-_global_script_class_icons={
-"ConnectorPoint": "",
-"Player": "",
-"Point": "",
-"PreviewPath": "",
-"PreviewPoint": "",
-"ResourcePoint": "",
-"RootPath": "",
-"Utils": ""
-}
+config_version=5
 
 [application]
 
 config/name="Spread"
 run/main_scene="res://UI/Main Menu.tscn"
+config/features=PackedStringArray("4.0")
 boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [display]
 
-window/size/width=1920
-window/size/height=1080
-window/size/always_on_top=true
-window/vsync/use_vsync=false
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/stretch/mode="viewport"
-window/stretch/aspect="keep"
+window/vsync/vsync_mode=false
 
 [global]
 
@@ -88,32 +35,32 @@ common/drop_mouse_on_gui_input_disabled=true
 
 ui_end={
 "deadzone": 0.5,
-"events": [  ]
+"events": []
 }
 place_connector_point_p1={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":5,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 place_connector_point_p2={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":1,"button_index":5,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":1,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 place_connector_point_p3={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":2,"button_index":5,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":2,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 place_connector_point_p4={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":3,"button_index":5,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":3,"button_index":10,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 remove_node={
 "deadzone": 0.5,
-"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":1,"pressure":0.0,"pressed":false,"script":null)
- ]
+"events": [Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":1,"pressure":0.0,"pressed":false,"script":null)
+]
 }
 
 [physics]
@@ -122,6 +69,7 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=3
+environment/defaults/default_environment="res://default_env.tres"
 quality/voxel_cone_tracing/high_quality=true
 quality/filters/msaa=4
-environment/default_environment="res://default_env.tres"

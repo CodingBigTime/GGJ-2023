@@ -4,7 +4,7 @@
 [ext_resource path="res://Objects/ResourcePoint.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/SFX/win.ogg" type="AudioStream" id=3]
 [ext_resource path="res://assets/SFX/bgm.mp3" type="AudioStream" id=4]
-[ext_resource path="res://assets/background.png" type="Texture" id=5]
+[ext_resource path="res://assets/background.png" type="Texture2D" id=5]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -52,11 +52,11 @@ stream = ExtResource( 3 )
 stream = ExtResource( 4 )
 volume_db = -30.0
 
-[node name="win_message" type="Sprite" parent="."]
+[node name="win_message" type="Sprite2D" parent="."]
 visible = false
 scale = Vector2( 4, 4 )
 
-[node name="background" type="Sprite" parent="."]
+[node name="background" type="Sprite2D" parent="."]
 z_index = -10
 texture = ExtResource( 5 )
 centered = false

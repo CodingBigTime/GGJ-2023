@@ -1,32 +1,30 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://c2q0xg2p4tuo7"]
 
-[ext_resource path="res://Actors/Player.gd" type="Script" id=1]
-[ext_resource path="res://assets/selected.png" type="Texture" id=2]
-[ext_resource path="res://assets/SFX/new_root.ogg" type="AudioStream" id=3]
-[ext_resource path="res://assets/SFX/root_connect.ogg" type="AudioStream" id=4]
-[ext_resource path="res://assets/SFX/enemy_steal.ogg" type="AudioStream" id=5]
+[ext_resource type="Script" path="res://Actors/Player.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://jyjfyilo6ap0" path="res://assets/selected.png" id="2"]
+[ext_resource type="AudioStream" uid="uid://cngr8s6lvvtic" path="res://assets/SFX/new_root.ogg" id="3"]
+[ext_resource type="AudioStream" uid="uid://drtehlpta4voi" path="res://assets/SFX/root_connect.ogg" id="4"]
+[ext_resource type="AudioStream" uid="uid://b3eo3qep7gdbt" path="res://assets/SFX/enemy_steal.ogg" id="5"]
 
 [node name="Player" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
-[node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 2.5, 2, 2, 1 )
-self_modulate = Color( 1, 1, 1, 0.501961 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 2 )
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(2.5, 2, 2, 1)
+self_modulate = Color(1, 1, 1, 0.501961)
+scale = Vector2(2, 2)
+texture = ExtResource("2")
 
-[node name="Tween" type="Tween" parent="."]
-
-[node name="Listener2D" type="Listener2D" parent="."]
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
 
-[node name="new_root" type="AudioStreamPlayer2D" parent="Listener2D"]
-scale = Vector2( 2, 2 )
-stream = ExtResource( 3 )
+[node name="new_root" type="AudioStreamPlayer2D" parent="AudioListener2D"]
+scale = Vector2(2, 2)
+stream = ExtResource("3")
 
-[node name="root_connect" type="AudioStreamPlayer2D" parent="Listener2D"]
-scale = Vector2( 2, 2 )
-stream = ExtResource( 4 )
+[node name="root_connect" type="AudioStreamPlayer2D" parent="AudioListener2D"]
+scale = Vector2(2, 2)
+stream = ExtResource("4")
 
-[node name="steal_enemy" type="AudioStreamPlayer2D" parent="Listener2D"]
-stream = ExtResource( 5 )
+[node name="steal_enemy" type="AudioStreamPlayer2D" parent="AudioListener2D"]
+stream = ExtResource("5")
