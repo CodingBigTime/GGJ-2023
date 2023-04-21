@@ -205,11 +205,6 @@ func update_sprite(delta):
 	sprite = update_cursor(sprite)
 	sprite.rotation += delta * 0.5
 
-func min_angle(angle):
-	return min(2*PI-angle, angle)
-	
-func abs_min_angle(angle):
-	return abs(min_angle(angle))
 
 func set_current_point(point: Point):
 	current_point = point
