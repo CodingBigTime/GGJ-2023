@@ -12,17 +12,19 @@ var player_indicators = []
 @onready var win_image = $win_message
 @onready var bgm = $bgm
 
+
 func _ready():
 	var connector_points = []
 
 	for i in range(num_players):
+		connector_points.push_back(connector_point_scene.instantiate())
 
-		connector_points.push_back((connector_point_scene.instantiate()))
-
-		if(i % 2 == 0):
-			connector_points[i].position = Vector2( 100 , get_window().get_size().y/2)
+		if i % 2 == 0:
+			connector_points[i].position = Vector2(100, get_window().get_size().y / 2)
 		else:
-			connector_points[i].position = Vector2( get_window().get_size().x - 100 , get_window().get_size().y/2)
+			connector_points[i].position = Vector2(
+				get_window().get_size().x - 100, get_window().get_size().y / 2
+			)
 
 		add_child(connector_points[i])
 
@@ -32,8 +34,8 @@ func _ready():
 
 		var player_bar = player_bar_scene.instantiate()
 		var player_indicator = Sprite2D.new()
-		player_indicator.set_texture(load("res://assets/p" + str(i+1) + "_indicator.png"))
-		if(i == 0):
+		player_indicator.set_texture(load("res://assets/p" + str(i + 1) + "_indicator.png"))
+		if i == 0:
 			var color = Color(0.25, 0.7, 0.13, 1)
 			player_bar.set_tint_progress(color)
 			player_bar.set_tint_over(color)
@@ -43,8 +45,12 @@ func _ready():
 			var color = Color(0.13, 0.44, 0.7, 1)
 			player_bar.set_tint_progress(color)
 			player_bar.set_tint_over(color)
-			player_bar.set_position(Vector2(get_window().get_size().x - player_bar.get_size().x * 2 - 32, 32))
-			player_indicator.set_position(Vector2(get_window().get_size().x - player_indicator.get_texture().get_size().x, 96))
+			player_bar.set_position(
+				Vector2(get_window().get_size().x - player_bar.get_size().x * 2 - 32, 32)
+			)
+			player_indicator.set_position(
+				Vector2(get_window().get_size().x - player_indicator.get_texture().get_size().x, 96)
+			)
 
 		connector_points[i].set_player_owner(players[i])
 		connector_points[i].set_texture(players[i])
@@ -58,16 +64,20 @@ func _ready():
 	bgm.set_volume_db(-15)
 	bgm.play()
 
+
 func _process(delta):
 	for i in range(num_players):
 		if is_instance_valid(players[i]):
 			player_bars[i].value = players[i].get_points()
 
+
 func announce_winner(player):
-	var message = "Player " + str(player.player_id+1) + " wins!"
+	var message = "Player " + str(player.player_id + 1) + " wins!"
 	print(message)
 	bgm.stop()
 	win_image.set_texture(load("res://assets/p" + str(player.player_id + 1) + "_win.png"))
 	win_image.visible = true
-	win_image.set_position(Vector2(get_window().get_size().x/2, get_window().get_size().y/2 - 200))
+	win_image.set_position(
+		Vector2(get_window().get_size().x / 2, get_window().get_size().y / 2 - 200)
+	)
 	$win.play()

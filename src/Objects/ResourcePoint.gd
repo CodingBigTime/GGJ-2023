@@ -8,14 +8,16 @@ var score = Label.new()
 
 var timer = 0
 
+
 func init(value, cooldown, pos):
 	_cooldown = cooldown
-	_value = value 
+	_value = value
 	get_node("..").add_child(score)
 	score.set_position(pos)
 	score.set_text(str(value) + " p/\n" + ("%.2f" % cooldown) + "s")
 	score.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	score.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+
 
 func _process(delta):
 	timer += delta
