@@ -20,10 +20,10 @@ func _ready():
 		connector_points.push_back(connector_point_scene.instantiate())
 
 		if i % 2 == 0:
-			connector_points[i].position = Vector2(100, get_window().get_size().y / 2)
+			connector_points[i].position = Vector2(100, get_window().get_size().y / 2.)
 		else:
 			connector_points[i].position = Vector2(
-				get_window().get_size().x - 100, get_window().get_size().y / 2
+				get_window().get_size().x - 100, get_window().get_size().y / 2.
 			)
 
 		add_child(connector_points[i])
@@ -78,6 +78,6 @@ func announce_winner(player):
 	win_image.set_texture(load("res://assets/p" + str(player.player_id + 1) + "_win.png"))
 	win_image.visible = true
 	win_image.set_position(
-		Vector2(get_window().get_size().x / 2, get_window().get_size().y / 2 - 200)
+		Vector2(get_window().get_size().x / 2., get_window().get_size().y / 2. - 200)
 	)
 	$win.play()
