@@ -128,7 +128,7 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("place_connector_point_p" + str(player_id + 1)):
 		if (preview_point.state == PreviewPoint.State.VALID_NEW_POINT) and points >= 3:
-			var connector_point = load("res://Objects/ConnectorPoint.tscn").instantiate()
+			var connector_point = load("res://Objects/connector_point.tscn").instantiate()
 			get_node("..").add_child(connector_point)
 			connector_point.position = position + preview_point.position
 			connector_point.rotation = rng.randf_range(0, 2 * PI)

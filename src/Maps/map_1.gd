@@ -12,7 +12,6 @@ var player_indicators = []
 @onready var win_image = $win_message
 @onready var bgm = $bgm
 
-
 func _ready():
 	var connector_points = []
 
@@ -65,7 +64,7 @@ func _ready():
 	bgm.play()
 
 
-func _process(delta):
+func _process(_delta):
 	for i in range(num_players):
 		if is_instance_valid(players[i]):
 			player_bars[i].value = players[i].get_points()

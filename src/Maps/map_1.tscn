@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpj3jiedtoyub"]
+[gd_scene load_steps=7 format=3 uid="uid://cpj3jiedtoyub"]
 
 [ext_resource type="Script" path="res://Maps/map_1.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://c7gr8va5sd4g2" path="res://assets/SFX/win.ogg" id="3"]
 [ext_resource type="AudioStream" uid="uid://ccgdl28t55xb4" path="res://assets/SFX/bgm.mp3" id="4"]
 [ext_resource type="Texture2D" uid="uid://cyrlccn34qbgx" path="res://assets/background.png" id="5"]
+[ext_resource type="PackedScene" uid="uid://c3csck5brdxl2" path="res://Objects/resource_point.tscn" id="5_ktg61"]
 
 [sub_resource type="Environment" id="1"]
 background_mode = 4
@@ -36,3 +37,18 @@ scale = Vector2(4, 4)
 z_index = -10
 texture = ExtResource("5")
 centered = false
+
+[node name="ResourcePoint" parent="." instance=ExtResource("5_ktg61")]
+position = Vector2(431, 243)
+
+[node name="ResourcePoint2" parent="." instance=ExtResource("5_ktg61")]
+position = Vector2(908, 563)
+
+[node name="ResourcePoint3" parent="." instance=ExtResource("5_ktg61")]
+position = Vector2(639, 879)
+
+[node name="ResourcePoint4" parent="." instance=ExtResource("5_ktg61")]
+position = Vector2(1098, 239)
+
+[node name="ResourcePoint5" parent="." instance=ExtResource("5_ktg61")]
+position = Vector2(1253, 781)
