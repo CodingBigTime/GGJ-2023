@@ -1,14 +1,19 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://c3csck5brdxl2"]
 
-[ext_resource type="Script" path="res://objects/resource_point.gd" id="1"]
+[ext_resource type="Script" path="res://Objects/resource_point.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://gc6n7s21v25c" path="res://assets/resource.png" id="2"]
 
-
 [node name="ResourcePoint" type="Node2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2( 2, 2 )
-texture = ExtResource( 2 )
+scale = Vector2(2, 2)
+texture = ExtResource("2")
 
 [node name="Tween" type="Tween" parent="."]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+editor_description = ""
+script = null

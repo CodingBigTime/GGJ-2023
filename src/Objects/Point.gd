@@ -3,7 +3,7 @@ class_name Point
 
 var _current_owner = null
 var _connections: Dictionary = {}
-var connection_scene = load("res://Objects/RootPath.tscn")
+var connection_scene = load("res://Objects/root_path.tscn")
 var health_points = 5
 var is_spiky = false
 

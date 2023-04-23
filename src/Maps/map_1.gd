@@ -1,10 +1,10 @@
 extends Node2D
 
 var num_players = 2
-var resource_point_scene = load("res://Objects/ResourcePoint.tscn")
-var connector_point_scene = load("res://Objects/ConnectorPoint.tscn")
+var resource_point_scene = load("res://Objects/resource_point.tscn")
+var connector_point_scene = load("res://Objects/connector_point.tscn")
 var player_scene = load("res://Actors/Player.tscn")
-var player_bar_scene = load("res://Objects/PlayerBar.tscn")
+var player_bar_scene = load("res://UI/player_bar.tscn")
 
 var players = []
 var player_bars = []

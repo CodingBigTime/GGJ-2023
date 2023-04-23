@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://bm6bcuvl2fmgq" path="res://assets/sfx/button_press.wav" id="10"]
 [ext_resource type="Texture2D" uid="uid://vf45l2efh1tj" path="res://assets/logo.png" id="13_n8lvl"]
 [ext_resource type="Texture2D" uid="uid://4ypfn5fwrx1h" path="res://assets/buttons/right_bumper.png" id="14_kcvbi"]
-[ext_resource type="Shader" path="res://shaders/logo.gdshader" id="15"]
+[ext_resource type="Shader" path="res://Shaders/logo.gdshader" id="15"]
 [ext_resource type="Texture2D" uid="uid://cpb5sk2kaehdy" path="res://assets/buttons/right_joystick.png" id="15_4e7q7"]
 [ext_resource type="Texture2D" uid="uid://cuxo67q5sn3hb" path="res://assets/buttons/left_joystick.png" id="16_ec4rn"]
 

@@ -31,8 +31,8 @@ var _bfs_effect_depth = 0
 
 
 func _ready():
-	preview_point = load("res://Objects/PreviewPoint.tscn").instantiate()
-	preview_path = load("res://Objects/PreviewPath.tscn").instantiate()
+	preview_point = load("res://Objects/preview_point.tscn").instantiate()
+	preview_path = load("res://Objects/preview_path.tscn").instantiate()
 	add_child(preview_point)
 	add_child(preview_path)
 	preview_point.set_visible(false)
