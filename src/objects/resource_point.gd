@@ -1,5 +1,5 @@
-extends Point
 class_name ResourcePoint
+extends Point
 
 @export var _value = 1
 @export var _cooldown = 1

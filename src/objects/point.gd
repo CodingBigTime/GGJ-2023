@@ -3,7 +3,7 @@ class_name Point
 
 var _current_owner = null
 var _connections: Dictionary = {}
-var connection_scene = load("res://Objects/root_path.tscn")
+var connection_scene = load("res://objects/root_path.tscn")
 var health_points = 5
 var is_spiky = false
 
@@ -47,7 +47,7 @@ func create_edge(point: Point):
 	var connection = connection_scene.instantiate()
 	var player_id = get_player_owner().player_id
 	var connection_texture = load(
-		"res://assets/Connections/player_" + str(player_id + 1) + "_vine.png"
+		"res://assets/connections/player_" + str(player_id + 1) + "_vine.png"
 	)
 	connection.get_node("Sprite2D").set_texture(connection_texture)
 	get_node("..").add_child(connection)
@@ -85,7 +85,7 @@ func set_player_owner(player):
 	if not "_cooldown" in self:
 		set_texture(_current_owner)
 	var connection_texture = load(
-		"res://assets/Connections/player_" + str(_current_owner.player_id + 1) + "_vine.png"
+		"res://assets/connections/player_" + str(_current_owner.player_id + 1) + "_vine.png"
 	)
 	for edge in _connections.values():
 		edge.get_node("Sprite2D").set_texture(connection_texture)

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://kvr2fnclf5rn"]
 
-[ext_resource type="Script" path="res://Objects/connector_point.gd" id="1"]
+[ext_resource type="Script" path="res://objects/connector_point.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cl14qj0l0645p" path="res://assets/players/1.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://dltc64whtc6jc" path="res://assets/spikes.png" id="3"]
-[ext_resource type="Shader" path="res://Shaders/flower.gdshader" id="4"]
+[ext_resource type="Shader" path="res://shaders/flower.gdshader" id="4"]
 
 [sub_resource type="ShaderMaterial" id="1"]
 shader = ExtResource("4")

@@ -1,5 +1,5 @@
-extends Point
 class_name PreviewPoint
+extends Point
 
 @export var MAXIMUM_DISTANCE = 150
 @export var MINIMUM_DISTANCE = 50

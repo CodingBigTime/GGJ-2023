@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cu7nxjk1wq43r"]
 
-[ext_resource type="Script" path="res://Objects/preview_point.gd" id="1"]
+[ext_resource type="Script" path="res://objects/preview_point.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cl14qj0l0645p" path="res://assets/players/1.png" id="2"]
 
 [node name="PreviewPoint" type="Node2D"]

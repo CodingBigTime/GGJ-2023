@@ -31,8 +31,8 @@ var _bfs_effect_depth = 0
 
 
 func _ready():
-	preview_point = load("res://Objects/preview_point.tscn").instantiate()
-	preview_path = load("res://Objects/preview_path.tscn").instantiate()
+	preview_point = load("res://objects/preview_point.tscn").instantiate()
+	preview_path = load("res://objects/preview_path.tscn").instantiate()
 	add_child(preview_point)
 	add_child(preview_path)
 	preview_point.set_visible(false)
@@ -128,7 +128,7 @@ func _physics_process(delta):
 
 	if Input.is_action_just_pressed("place_connector_point_p" + str(player_id + 1)):
 		if (preview_point.state == PreviewPoint.State.VALID_NEW_POINT) and points >= 3:
-			var connector_point = load("res://Objects/connector_point.tscn").instantiate()
+			var connector_point = load("res://objects/connector_point.tscn").instantiate()
 			get_node("..").add_child(connector_point)
 			connector_point.position = position + preview_point.position
 			connector_point.rotation = rng.randf_range(0, 2 * PI)
