@@ -4,7 +4,7 @@ var num_players = 2
 var resource_point_scene = load("res://objects/resource_point.tscn")
 var connector_point_scene = load("res://objects/connector_point.tscn")
 var player_scene = load("res://actors/player.tscn")
-var player_bar_scene = load("res://UI/player_bar.tscn")
+var player_bar_scene = load("res://ui/player_bar.tscn")
 
 var players = []
 var player_bars = []
