@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpj3jiedtoyub"]
+[gd_scene load_steps=7 format=3 uid="uid://capj6il8v3ce2"]
 
-[ext_resource type="Script" path="res://maps/map_1.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/maps/map_1.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://c7gr8va5sd4g2" path="res://assets/sfx/win.ogg" id="3"]
 [ext_resource type="AudioStream" uid="uid://ccgdl28t55xb4" path="res://assets/sfx/bgm.mp3" id="4"]
 [ext_resource type="Texture2D" uid="uid://cyrlccn34qbgx" path="res://assets/background.png" id="5"]

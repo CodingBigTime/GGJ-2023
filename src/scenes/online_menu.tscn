@@ -1,0 +1,72 @@
+[gd_scene load_steps=12 format=3 uid="uid://dvno2kxkc4knr"]
+
+[ext_resource type="Texture2D" uid="uid://cyrlccn34qbgx" path="res://assets/background.png" id="1_2oxbt"]
+[ext_resource type="Texture2D" uid="uid://dd35ma15h25tj" path="res://assets/buttons/connect_button_normal.png" id="2_xce5i"]
+[ext_resource type="Texture2D" uid="uid://c5ydj574dr2xi" path="res://assets/buttons/connect_button_pressed.png" id="3_4jjmq"]
+[ext_resource type="Texture2D" uid="uid://eneiboss2vhr" path="res://assets/buttons/connect_button_hover.png" id="4_37hjk"]
+[ext_resource type="Script" path="res://ui/connect_button.gd" id="5_wpqsx"]
+[ext_resource type="Texture2D" uid="uid://bim53of40hkoa" path="res://assets/buttons/host_button_normal.png" id="5_yjm4u"]
+[ext_resource type="Texture2D" uid="uid://caitci06oqnjv" path="res://assets/buttons/host_button_pressed.png" id="6_8jfoo"]
+[ext_resource type="AudioStream" uid="uid://bm6bcuvl2fmgq" path="res://assets/sfx/button_press.wav" id="6_rea3r"]
+[ext_resource type="AudioStream" uid="uid://clj6pfdgfrud7" path="res://assets/sfx/button_release.wav" id="7_kojx5"]
+[ext_resource type="Texture2D" uid="uid://cjthd4hwro4ok" path="res://assets/buttons/host_button_hover.png" id="7_yc6gh"]
+[ext_resource type="Script" path="res://ui/host_button.gd" id="11_gq132"]
+
+[node name="OnlineMenu" type="MarginContainer"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_2oxbt")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 64)
+layout_mode = 2
+placeholder_text = "127.0.0.1"
+context_menu_enabled = false
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="ConnectButton" type="TextureButton" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("2_xce5i")
+texture_pressed = ExtResource("3_4jjmq")
+texture_hover = ExtResource("4_37hjk")
+script = ExtResource("5_wpqsx")
+
+[node name="down" type="AudioStreamPlayer" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/ConnectButton"]
+stream = ExtResource("6_rea3r")
+
+[node name="up" type="AudioStreamPlayer" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/ConnectButton"]
+stream = ExtResource("7_kojx5")
+
+[node name="HostButton" type="TextureButton" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_yjm4u")
+texture_pressed = ExtResource("6_8jfoo")
+texture_hover = ExtResource("7_yc6gh")
+script = ExtResource("11_gq132")
+
+[node name="down" type="AudioStreamPlayer" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/HostButton"]
+stream = ExtResource("6_rea3r")
+
+[node name="up" type="AudioStreamPlayer" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/HostButton"]
+stream = ExtResource("7_kojx5")
+
+[connection signal="button_down" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/ConnectButton" to="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/ConnectButton" method="_on_button_down"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/ConnectButton" to="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/ConnectButton" method="_on_button_up"]
+[connection signal="button_down" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/HostButton" to="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/HostButton" method="_on_button_down"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/HostButton" to="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/HostButton" method="_on_button_up"]

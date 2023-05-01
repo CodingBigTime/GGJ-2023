@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dkalobgt16e2s"]
+[gd_scene load_steps=22 format=3 uid="uid://cyoa02x4ihu5p"]
 
 [ext_resource type="Texture2D" uid="uid://cvaryjoqyns3q" path="res://assets/buttons/start_button_normal.png" id="1_iud48"]
 [ext_resource type="Texture2D" uid="uid://cyrlccn34qbgx" path="res://assets/background.png" id="1_qshx1"]
@@ -9,8 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://dy5y5l14xceox" path="res://assets/buttons/exit_button_hover.png" id="3_o2blp"]
 [ext_resource type="Script" path="res://ui/exit_button.gd" id="7"]
 [ext_resource type="Script" path="res://ui/start_button.gd" id="8"]
+[ext_resource type="Script" path="res://ui/online_button.gd" id="8_hbnfm"]
+[ext_resource type="Texture2D" uid="uid://dplbbl1hqdkbu" path="res://assets/buttons/online_button_normal.png" id="8_u8i8d"]
 [ext_resource type="AudioStream" uid="uid://clj6pfdgfrud7" path="res://assets/sfx/button_release.wav" id="9"]
+[ext_resource type="Texture2D" uid="uid://brqkxiwo32ngd" path="res://assets/buttons/online_button_pressed.png" id="9_l8b4a"]
 [ext_resource type="AudioStream" uid="uid://bm6bcuvl2fmgq" path="res://assets/sfx/button_press.wav" id="10"]
+[ext_resource type="Texture2D" uid="uid://b8jrjo5gbe4vw" path="res://assets/buttons/online_button_hover.png" id="10_gawkr"]
 [ext_resource type="Texture2D" uid="uid://vf45l2efh1tj" path="res://assets/logo.png" id="13_n8lvl"]
 [ext_resource type="Texture2D" uid="uid://4ypfn5fwrx1h" path="res://assets/buttons/right_bumper.png" id="14_kcvbi"]
 [ext_resource type="Shader" path="res://shaders/logo.gdshader" id="15"]
@@ -36,9 +40,12 @@ texture = ExtResource("1_qshx1")
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 2
 theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 80
 
 [node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer"]
 layout_mode = 2
+collapsed = true
+dragger_visibility = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HSplitContainer"]
 layout_mode = 2
@@ -62,17 +69,18 @@ stream = ExtResource("10")
 [node name="up" type="AudioStreamPlayer" parent="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/StartButton"]
 stream = ExtResource("9")
 
-[node name="SettingsButton" type="TextureButton" parent="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer"]
+[node name="OnlineButton" type="TextureButton" parent="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-texture_normal = ExtResource("1_iud48")
-texture_pressed = ExtResource("2_n5oif")
-texture_hover = ExtResource("3_nrk6h")
-script = ExtResource("8")
+texture_normal = ExtResource("8_u8i8d")
+texture_pressed = ExtResource("9_l8b4a")
+texture_hover = ExtResource("10_gawkr")
+stretch_mode = 0
+script = ExtResource("8_hbnfm")
 
-[node name="down" type="AudioStreamPlayer" parent="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/SettingsButton"]
+[node name="down" type="AudioStreamPlayer" parent="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/OnlineButton"]
 stream = ExtResource("10")
 
-[node name="up" type="AudioStreamPlayer" parent="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/SettingsButton"]
+[node name="up" type="AudioStreamPlayer" parent="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/OnlineButton"]
 stream = ExtResource("9")
 
 [node name="ExitButton" type="TextureButton" parent="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer"]
@@ -101,33 +109,32 @@ layout_mode = 2
 layout_mode = 2
 alignment = 1
 
-[node name="TextureRect4" type="TextureRect" parent="MarginContainer/HSplitContainer/CenterContainer/VBoxContainer"]
+[node name="logo" type="TextureRect" parent="MarginContainer/HSplitContainer/CenterContainer/VBoxContainer"]
 material = SubResource("2")
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
 texture = ExtResource("13_n8lvl")
 stretch_mode = 5
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HSplitContainer/CenterContainer/VBoxContainer"]
+[node name="right_bumper_helper_text" type="TextureRect" parent="MarginContainer/HSplitContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("14_kcvbi")
 stretch_mode = 5
 
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HSplitContainer/CenterContainer/VBoxContainer"]
+[node name="right_joystick_helper_text" type="TextureRect" parent="MarginContainer/HSplitContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("15_4e7q7")
 stretch_mode = 5
 
-[node name="TextureRect3" type="TextureRect" parent="MarginContainer/HSplitContainer/CenterContainer/VBoxContainer"]
+[node name="left_bumper_helper_text" type="TextureRect" parent="MarginContainer/HSplitContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("16_ec4rn")
 stretch_mode = 5
 
-[connection signal="button_down" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/StartButton" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/StartButton" method="_on_Start_Button_button_down"]
-[connection signal="button_up" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/StartButton" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/StartButton" method="_on_Start_Button_button_up"]
-[connection signal="child_exiting_tree" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/StartButton/down" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/StartButton" method="_on_down_child_exiting_tree"]
-[connection signal="button_down" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/SettingsButton" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/SettingsButton" method="_on_Start_Button_button_down"]
-[connection signal="button_up" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/SettingsButton" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/SettingsButton" method="_on_Start_Button_button_up"]
-[connection signal="child_exiting_tree" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/SettingsButton/down" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/SettingsButton" method="_on_down_child_exiting_tree"]
-[connection signal="button_down" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/ExitButton" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/ExitButton" method="_on_Exit_Button_button_down"]
-[connection signal="button_up" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/ExitButton" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/ExitButton" method="_on_Exit_Button_button_up"]
+[connection signal="button_down" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/StartButton" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/StartButton" method="_on_button_down"]
+[connection signal="button_up" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/StartButton" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/StartButton" method="_on_button_up"]
+[connection signal="button_down" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/OnlineButton" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/OnlineButton" method="_on_button_down"]
+[connection signal="button_up" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/OnlineButton" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/OnlineButton" method="_on_button_up"]
+[connection signal="tree_exited" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/OnlineButton" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/OnlineButton" method="_on_tree_exited"]
+[connection signal="button_down" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/ExitButton" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/ExitButton" method="_on_button_down"]
+[connection signal="button_up" from="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/ExitButton" to="MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/ExitButton" method="_on_button_up"]
