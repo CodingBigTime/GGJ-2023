@@ -1,10 +1,10 @@
 extends Node2D
 
 var num_players = 2
-var resource_point_scene = load("res://objects/resource_point.tscn")
-var connector_point_scene = load("res://objects/connector_point.tscn")
-var player_scene = load("res://actors/player.tscn")
-var player_bar_scene = load("res://ui/player_bar.tscn")
+var resource_point_scene = preload("res://objects/resource_point.tscn")
+var connector_point_scene = preload("res://objects/connector_point.tscn")
+var player_scene = preload("res://actors/player.tscn")
+var player_bar_scene = preload("res://ui/player_bar.tscn")
 
 var players = []
 var player_bars = []
@@ -55,8 +55,8 @@ func _ready():
 		connector_points[i].set_texture(players[i])
 
 		add_child(players[i])
+		add_child(players[i])
 		add_child(player_bar)
-		add_child(player_indicator)
 		player_bars.push_back(player_bar)
 		player_indicators.push_back(player_indicator)
 

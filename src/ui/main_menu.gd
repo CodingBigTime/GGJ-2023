@@ -1,18 +1,83 @@
-extends Control
+extends Node
 
+var menus: Array[Node]
+var maps: Array[PackedScene] = [preload("res://maps/map_1.tscn")]
+var peer = ENetMultiplayerPeer.new()
+var tst = preload("res://Testscene.tscn")
 
-func _show():
-	super.show()  #important when overriding
-	set_process_input(true)
+func _ready():
+	menus = [
+		$HomeMenu,
+		$OnlineMenu
+	]
 
-	# grab focus of the first node
-	$MarginContainer/HSplitContainer/VBoxContainer/VBoxContainer/StartButton.grab_focus()
+@rpc("any_peer", "call_local")
+func test(new_peer_id=0):
+	print(str(new_peer_id) + " connected")
+	var label = tst.instantiate()
+	label.text = str(new_peer_id)
+	$OnlineMenu/QueueVBox/TextEdit.hide()
+	$OnlineMenu/QueueVBox/CenterContainer.hide()
+	$OnlineMenu/QueueVBox/MultiplayerVBox.show()
+	$OnlineMenu/QueueVBox/MultiplayerVBox/VBoxContainer.add_child(label)
 
+func _on_host_button_pressed():
+	peer.create_server(1234)
+	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
+		OS.alert("Failed to start multiplayer server.")
+		return
+	multiplayer.multiplayer_peer = peer
 
-func _hide():
-	super.hide()  #important when overriding
-	set_process_input(false)  #disable input for this node
+	multiplayer.peer_connected.connect(test)
+	test(multiplayer.get_unique_id())
 
+	var label = tst.instantiate()
+	label.text = "Connected:"
+
+	var startButton = Button.new()
+	startButton.pressed.connect(_on_start_button_pressed)
+	startButton.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	startButton.text = "Start"
+
+	$OnlineMenu/QueueVBox/TextEdit.hide()
+	$OnlineMenu/QueueVBox/CenterContainer.hide()
+	$OnlineMenu/QueueVBox/MultiplayerVBox.show()
+	$OnlineMenu/QueueVBox/MultiplayerVBox/VBoxContainer.add_child(startButton)
+	$OnlineMenu/QueueVBox/MultiplayerVBox/VBoxContainer.add_child(label)
+
+func _on_connect_button_pressed():
+	peer.create_client('localhost', 1234)
+	multiplayer.multiplayer_peer = peer
+	multiplayer.peer_connected.connect(test)
+	multiplayer.connected_to_server.connect(func(): test(multiplayer.get_unique_id()))
+
+func _on_start_button_pressed():
+	hide_all_menus()
+	$"..".add_child(maps[0].instantiate())
+
+func _on_online_button_pressed():
+	open_online_menu()
+
+func _on_exit_button_pressed():
+	get_tree().quit()
+
+func _on_button_down():
+	$"../ButtonDownSFX".play()
+
+func _on_button_up():
+	$"../ButtonUpSFX".play()
+
+func open_online_menu():
+	hide_all_menus()
+	$OnlineMenu.show()
+	
+func open_main_menu():
+	hide_all_menus()
+	$HomeMenu.show()
+
+func hide_all_menus():
+	for menu in menus:
+		menu.hide()
 
 func _input(event):
 	var current = get_viewport().gui_get_focus_owner()
