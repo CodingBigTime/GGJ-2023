@@ -1,4 +1,5 @@
 extends Node2D
+
 class_name Player
 
 var current_point: Point = null
@@ -39,21 +40,129 @@ func _ready():
 	preview_path.set_visible(false)
 	start_scale_tween()
 	rng.randomize()
-	$AudioListener2D/root_connect.set_volume_db(-15)
-	$AudioListener2D/steal_enemy.set_volume_db(-5)
-	$AudioListener2D/root_connect.set_attenuation(2)
-	$AudioListener2D/new_root.set_attenuation(2)
-	$AudioListener2D/steal_enemy.set_attenuation(2)
-	$AudioListener2D/root_connect.set_max_distance(40000)
-	$AudioListener2D/new_root.set_max_distance(40000)
-	$AudioListener2D/steal_enemy.set_max_distance(40000)
 
 
-func update_cursor(sprite: Sprite2D):
+func _input(event):
+	if event is InputEventJoypadMotion or event is InputEventJoypadButton:
+		handle_controller_input()
+	# if event is InputEventKey:
+	# 	handle_keyboard_input(event)
+
+func handle_controller_input() -> void:
+	var left_stick_angle = Utils.get_joystick_direction(JOY_AXIS_LEFT_X, JOY_AXIS_LEFT_Y, player_id)
+	var right_stick_angle = Utils.get_joystick_direction(JOY_AXIS_RIGHT_X, JOY_AXIS_RIGHT_Y, player_id)
+
+	var left_stick_distance = Utils.get_joystick_distance(JOY_AXIS_LEFT_X, JOY_AXIS_LEFT_Y, player_id)
+	var right_stick_distance = Utils.get_joystick_distance(JOY_AXIS_RIGHT_X, JOY_AXIS_RIGHT_Y, player_id)
+
+	if abs(right_stick_distance) > CONTROLLER_DEADZONE:
+		var connected_points = current_point.get_connection_points()
+		if connected_points.size() > 0 and movement_delta >= MOVE_DELAY:
+			movement_delta = 0
+			var closest_point = null
+			var min_angle = 1000
+			for point in connected_points:
+				var current_angle = Utils.get_abs_angle_difference(-current_point.position.angle_to_point(point.position), right_stick_angle)
+				if current_angle < min_angle and current_angle < MOVEMENT_LIMIT:
+					closest_point = point
+					min_angle = current_angle
+			if closest_point != null:
+				set_current_point(closest_point)
+
+	preview_point.update_position(
+		left_stick_angle,
+		left_stick_distance if abs(left_stick_distance) > CONTROLLER_DEADZONE else 0
+	)
+
+	preview_point.update_state(self)
+	preview_path.update_position(Vector2.ZERO, preview_point.position)
+
+	if Input.is_action_just_pressed("place_connector_point_p" + str(player_id + 1)):
+		if preview_point.state == PreviewPoint.State.VALID_NEW_POINT and points >= 3:
+			var connector_point = load("res://objects/connector_point.tscn").instantiate()
+			get_node("..").add_child(connector_point)
+			connector_point.position = position + preview_point.position
+			connector_point.rotation = rng.randf_range(0, 2 * PI)
+			current_point.connect_point(connector_point)
+			set_current_point(connector_point)
+			listener.position = connector_point.position
+			$AudioListener2D/new_root.set_pitch_scale(rng.randf_range(0.4, 1))
+			$AudioListener2D/new_root.play()
+
+			points -= 3
+		elif preview_point.state == PreviewPoint.State.SNAP_TO_POINT and points >= 1:
+			current_point.connect_point(preview_point.closest_point)
+			set_current_point(preview_point.closest_point)
+			listener.position = current_point.position
+			$AudioListener2D/root_connect.set_pitch_scale(rng.randf_range(0.4, 1))
+			$AudioListener2D/root_connect.play()
+			points -= 1
+		elif preview_point.state == PreviewPoint.State.SNAP_TO_ENEMY_POINT and points >= preview_point.closest_point.health_points:
+			var connected_points = preview_point.closest_point.get_all_connected_points_dfs()
+			var enemy = preview_point.closest_point.get_player_owner()
+			var is_occupied_subgraph = enemy.current_point in connected_points
+			points -= preview_point.closest_point.health_points
+			$AudioListener2D/steal_enemy.set_pitch_scale(rng.randf_range(0.4, 1))
+			$AudioListener2D/steal_enemy.play()
+			if not is_occupied_subgraph:
+				for point in connected_points:
+					point.set_player_owner(self)
+				current_point.connect_point(preview_point.closest_point)
+				set_current_point(preview_point.closest_point)
+			else:
+				preview_point.closest_point.steal_point(self)
+				preview_point.closest_point.health_points = 0
+			listener.position = preview_point.closest_point.position
+			enemy.set_current_point(enemy.current_point)
+
+	if preview_point.state == PreviewPoint.State.HIDDEN:
+		preview_path.set_visible(false)
+	else:
+		preview_path.set_visible(true)
+
+	if preview_point.state != PreviewPoint.State.HIDDEN:
+		var color = null
+		match preview_point.state:
+			PreviewPoint.State.VALID_NEW_POINT:
+				color = Color(3, 3, 3, 0.4)
+			PreviewPoint.State.INVALID_NEW_POINT:
+				color = Color(1.5, 1, 1, 0.3)
+			PreviewPoint.State.SNAP_TO_POINT, PreviewPoint.State.SNAP_TO_ENEMY_POINT:
+				color = Color(3, 3, 3, 0.4)
+		preview_path.set_modulate(color)
+
+func handle_passive_point_generation(delta: float) -> void:
+	_passive_points_timer += delta
+
+	if _passive_points_timer >= _passive_points_cooldown:
+		_passive_points_timer -= _passive_points_cooldown
+		points += _passive_points_amount
+
+func handle_bfs_effect(delta: float) -> void:
+	if _bfs_effect_active and _bfs_effect_array.size() > 0:
+		_bfs_effect_timer += delta
+
+		if _bfs_effect_timer >= 0.1:
+			_bfs_effect_timer -= 0.1
+
+			while _bfs_effect_array.size() > 0 and _bfs_effect_array[0][1] == _bfs_effect_depth:
+				var point = _bfs_effect_array.pop_front()[0]
+				point.modulate = Color(1.72, 1.72, 1.72, 1)
+			_bfs_effect_depth += 1
+
+func update_sprite(delta: float) -> void:
+	var sprite = get_node("Sprite2D")
 	var sprite_text = load("res://assets/selected_player_" + str(player_id + 1) + ".png")
 	sprite.set_texture(sprite_text)
-	return sprite
+	sprite.rotation += delta * 0.5
 
+func _physics_process(delta):
+	movement_delta += delta
+
+	handle_controller_input()
+	handle_passive_point_generation(delta)
+	handle_bfs_effect(delta)
+	update_sprite(delta)
 
 func start_scale_tween():
 	var sprite = get_node("Sprite2D")
@@ -69,152 +178,18 @@ func start_scale_tween():
 	tween.tween_property(sprite, "scale", scale_values[1], 2.0)
 	tween.play()
 
-
-func _physics_process(delta):
-	var left_stick_angle = Utils.get_joystick_direction(JOY_AXIS_LEFT_X, JOY_AXIS_LEFT_Y, player_id)
-	var right_stick_angle = Utils.get_joystick_direction(
-		JOY_AXIS_RIGHT_X, JOY_AXIS_RIGHT_Y, player_id
-	)
-
-	var left_stick_distance = Utils.get_joystick_distance(
-		JOY_AXIS_LEFT_X, JOY_AXIS_LEFT_Y, player_id
-	)
-	var right_stick_distance = Utils.get_joystick_distance(
-		JOY_AXIS_RIGHT_X, JOY_AXIS_RIGHT_Y, player_id
-	)
-
-	movement_delta += delta
-
-	_passive_points_timer += delta
-
-	if _passive_points_timer >= _passive_points_cooldown:
-		_passive_points_timer -= _passive_points_cooldown
-		points += _passive_points_amount
-
-	update_sprite(delta)
-
-	if _bfs_effect_active and _bfs_effect_array.size() > 0:
-		_bfs_effect_timer += delta
-		if _bfs_effect_timer >= 0.1:
-			_bfs_effect_timer -= 0.1
-			while _bfs_effect_array.size() > 0 and _bfs_effect_array[0][1] == _bfs_effect_depth:
-				var point = _bfs_effect_array.pop_front()[0]
-				point.modulate = Color(1.72, 1.72, 1.72, 1)
-			_bfs_effect_depth += 1
-
-	if abs(right_stick_distance) > CONTROLLER_DEADZONE:
-		var connected_points = current_point.get_connection_points()
-		if connected_points.size() > 0 and movement_delta >= MOVE_DELAY:
-			movement_delta = 0
-			var closest_point = null
-			var min_angle = 1000
-			for point in connected_points:
-				var current_angle = Utils.get_abs_angle_difference(
-					-current_point.position.angle_to_point(point.position), right_stick_angle
-				)
-				if current_angle < min_angle && current_angle < MOVEMENT_LIMIT:
-					closest_point = point
-					min_angle = current_angle
-			if closest_point != null:
-				set_current_point(closest_point)
-
-	preview_point.update_position(
-		left_stick_angle,
-		left_stick_distance if abs(left_stick_distance) > CONTROLLER_DEADZONE else 0
-	)
-
-	preview_point.update_state(self)
-	preview_path.update_position(Vector2.ZERO, preview_point.position)
-
-	if Input.is_action_just_pressed("place_connector_point_p" + str(player_id + 1)):
-		if (preview_point.state == PreviewPoint.State.VALID_NEW_POINT) and points >= 3:
-			var connector_point = load("res://objects/connector_point.tscn").instantiate()
-			get_node("..").add_child(connector_point)
-			connector_point.position = position + preview_point.position
-			connector_point.rotation = rng.randf_range(0, 2 * PI)
-			current_point.connect_point(connector_point)
-			set_current_point(connector_point)
-			listener.position = connector_point.position
-			$AudioListener2D/new_root.set_pitch_scale(rng.randf_range(0.4, 1))
-			$AudioListener2D/new_root.play()
-
-			points -= 3
-		elif (preview_point.state == PreviewPoint.State.SNAP_TO_POINT) and points >= 1:
-			current_point.connect_point(preview_point.closest_point)
-			set_current_point(preview_point.closest_point)
-			listener.position = current_point.position
-			$AudioListener2D/root_connect.set_pitch_scale(rng.randf_range(0.4, 1))
-			$AudioListener2D/root_connect.play()
-			points -= 1
-		elif (
-			(preview_point.state == PreviewPoint.State.SNAP_TO_ENEMY_POINT)
-			and points >= preview_point.closest_point.health_points
-		):
-			var connected_points = preview_point.closest_point.get_all_connected_points_dfs()
-			var enemy = preview_point.closest_point.get_player_owner()
-			var is_occupied_subgraph = enemy.current_point in connected_points
-			points -= preview_point.closest_point.health_points
-			$AudioListener2D/steal_enemy.set_pitch_scale(rng.randf_range(0.4, 1))
-			$AudioListener2D/steal_enemy.play()
-			if not is_occupied_subgraph:
-				for point in connected_points:
-					point.set_player_owner(self)
-				current_point.connect_point(preview_point.closest_point)
-				set_current_point(preview_point.closest_point)
-			else:
-				if preview_point.closest_point == enemy.current_point:
-					var num_connected_points = enemy.current_point.get_connection_points().size()
-					if num_connected_points == 0:
-						get_parent().announce_winner(self)
-						enemy.queue_free()
-						_bfs_effect_active = true
-					else:
-						var random_connected = enemy.current_point.get_connection_points()[
-							randi() % num_connected_points
-						]
-						enemy.set_current_point(random_connected)
-				preview_point.closest_point.remove_edges()
-				current_point.connect_point(preview_point.closest_point)
-				set_current_point(preview_point.closest_point)
-				if _bfs_effect_active:
-					_bfs_effect_array = current_point.get_all_connected_points_bfs()
-
-	if preview_point.state == PreviewPoint.State.HIDDEN:
-		preview_path.set_visible(false)
-	else:
-		preview_path.set_visible(true)
-
-	if preview_point.state != PreviewPoint.State.HIDDEN:
-		var color = null
-		match preview_point.state:
-			PreviewPoint.State.VALID_NEW_POINT:
-				color = Color(3, 3, 3, 0.4)
-			PreviewPoint.State.INVALID_NEW_POINT:
-				color = Color(1.5, 1, 1, 0.3)
-			PreviewPoint.State.SNAP_TO_POINT:
-				color = Color(3, 3, 3, 1)
-			PreviewPoint.State.SNAP_TO_ENEMY_POINT:
-				color = Color(10, 1, 1, 1)
-
-		preview_path.modulate = color
-		preview_point.modulate = color
-
-
-func update_sprite(delta):
-	var sprite = get_node("Sprite2D")
-	sprite = update_cursor(sprite)
-	sprite.rotation += delta * 0.5
-
-
 func set_current_point(point: Point):
 	current_point = point
 	position = point.position
 	current_point.set_player_owner(self)
 
+func update_cursor(sprite: Sprite2D):
+	var sprite_text = load("res://assets/selected_player_" + str(player_id + 1) + ".png")
+	sprite.set_texture(sprite_text)
+	return sprite
 
 func get_angle_to_point(point: Point):
 	return position.angle_to_point(point.position)
-
 
 func get_points():
 	return points
