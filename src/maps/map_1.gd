@@ -55,8 +55,8 @@ func _ready():
 		connector_points[i].set_texture(players[i])
 
 		add_child(players[i])
-		add_child(players[i])
 		add_child(player_bar)
+		add_child(player_indicator)
 		player_bars.push_back(player_bar)
 		player_indicators.push_back(player_indicator)
 

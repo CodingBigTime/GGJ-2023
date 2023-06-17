@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmba53v6upue8"]
+[gd_scene load_steps=6 format=3 uid="uid://cmba53v6upue8"]
 
 [ext_resource type="Script" path="res://maps/map_1.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://c7gr8va5sd4g2" path="res://assets/sfx/win.ogg" id="3"]
 [ext_resource type="AudioStream" uid="uid://ccgdl28t55xb4" path="res://assets/sfx/bgm.mp3" id="4"]
-[ext_resource type="Texture2D" uid="uid://cyrlccn34qbgx" path="res://assets/background.png" id="5"]
 [ext_resource type="PackedScene" uid="uid://c3csck5brdxl2" path="res://objects/resource_point.tscn" id="5_ktg61"]
 
 [sub_resource type="Environment" id="1"]
@@ -32,11 +31,6 @@ volume_db = -30.0
 [node name="win_message" type="Sprite2D" parent="."]
 visible = false
 scale = Vector2(4, 4)
-
-[node name="background" type="Sprite2D" parent="."]
-z_index = -10
-texture = ExtResource("5")
-centered = false
 
 [node name="ResourcePoint" parent="." instance=ExtResource("5_ktg61")]
 position = Vector2(431, 243)
