@@ -140,7 +140,8 @@ layout_mode = 2
 [node name="TextEdit" type="TextEdit" parent="Container/OnlineMenu/QueueVBox"]
 custom_minimum_size = Vector2(500, 64)
 layout_mode = 2
-placeholder_text = "127.0.0.1"
+text = "127.0.0.1"
+placeholder_text = "Server IP"
 context_menu_enabled = false
 
 [node name="CenterContainer" type="CenterContainer" parent="Container/OnlineMenu/QueueVBox"]

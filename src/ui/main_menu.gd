@@ -46,7 +46,7 @@ func _on_host_button_pressed():
 	$OnlineMenu/QueueVBox/MultiplayerVBox/VBoxContainer.add_child(label)
 
 func _on_connect_button_pressed():
-	peer.create_client('localhost', 1234)
+	peer.create_client($OnlineMenu/QueueVBox/TextEdit.text, 1234)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(test)
 	multiplayer.connected_to_server.connect(func(): test(multiplayer.get_unique_id()))
