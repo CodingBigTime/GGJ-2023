@@ -33,10 +33,12 @@ var _bfs_effect_depth = 0
 func _ready():
 	preview_point = load("res://objects/preview_point.tscn").instantiate()
 	preview_path = load("res://objects/preview_path.tscn").instantiate()
-	add_child(preview_point)
-	add_child(preview_path)
 	preview_point.set_visible(false)
 	preview_path.set_visible(false)
+	preview_point.name = str(Time.get_ticks_msec())
+	preview_path.name = str(Time.get_ticks_msec())
+	add_child(preview_point)
+	add_child(preview_path)
 	start_scale_tween()
 	rng.randomize()
 	$AudioListener2D/root_connect.set_volume_db(-15)
@@ -59,8 +61,7 @@ func start_scale_tween():
 	var sprite = get_node("Sprite2D")
 	sprite = update_cursor(sprite)
 	var tween = (
-		get_tree()
-		. create_tween()
+		create_tween()
 		. set_trans(Tween.TRANS_SINE)
 		. set_ease(Tween.EASE_IN_OUT)
 		. set_loops()
@@ -129,12 +130,13 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("place_connector_point_p" + str(player_id + 1)):
 		if (preview_point.state == PreviewPoint.State.VALID_NEW_POINT) and points >= 3:
 			var connector_point = load("res://objects/connector_point.tscn").instantiate()
-			get_node("..").add_child(connector_point)
 			connector_point.position = position + preview_point.position
 			connector_point.rotation = rng.randf_range(0, 2 * PI)
 			current_point.connect_point(connector_point)
 			set_current_point(connector_point)
 			listener.position = connector_point.position
+			connector_point.name = str(Time.get_ticks_msec())
+			get_node("..").add_child(connector_point)
 			$AudioListener2D/new_root.set_pitch_scale(rng.randf_range(0.4, 1))
 			$AudioListener2D/new_root.play()
 

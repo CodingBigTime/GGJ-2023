@@ -11,13 +11,7 @@ var scale_values = [Vector2(0.85, 0.85), Vector2(1.1, 1.1)]
 
 
 func start_spike_tween():
-	var tween = (
-		get_tree()
-		. create_tween()
-		. set_trans(Tween.TRANS_SINE)
-		. set_ease(Tween.EASE_IN_OUT)
-		. set_loops()
-	)
+	var tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT).set_loops()
 	var sprite = get_node("SpikeSprite")
 	tween.tween_property(sprite, "scale", scale_values[0], 0.5)
 	tween.tween_property(sprite, "scale", scale_values[1], 0.5)
@@ -50,8 +44,9 @@ func create_edge(point: Point):
 		"res://assets/connections/player_" + str(player_id + 1) + "_vine.png"
 	)
 	connection.get_node("Sprite2D").set_texture(connection_texture)
-	get_node("..").add_child(connection)
 	connection.update_position(position, point.position)
+	connection.name = str(Time.get_ticks_msec())
+	get_node("..").add_child(connection)
 	return connection
 
 

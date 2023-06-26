@@ -25,8 +25,6 @@ func _ready():
 				get_window().get_size().x - 100, get_window().get_size().y / 2.
 			)
 
-		add_child(connector_points[i])
-
 		players.push_back(player_scene.instantiate())
 		players[i].player_id = i
 		players[i].set_current_point(connector_points[i])
@@ -54,6 +52,11 @@ func _ready():
 		connector_points[i].set_player_owner(players[i])
 		connector_points[i].set_texture(players[i])
 
+		connector_points[i].name = str(Time.get_ticks_msec())
+		players[i].name = str(Time.get_ticks_msec())
+		player_bar.name = str(Time.get_ticks_msec())
+		player_indicator.name = str(Time.get_ticks_msec())
+		add_child(connector_points[i])
 		add_child(players[i])
 		add_child(player_bar)
 		add_child(player_indicator)

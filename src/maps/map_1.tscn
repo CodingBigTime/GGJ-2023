@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmba53v6upue8"]
+[gd_scene load_steps=7 format=3 uid="uid://cmba53v6upue8"]
 
 [ext_resource type="Script" path="res://maps/map_1.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://c7gr8va5sd4g2" path="res://assets/sfx/win.ogg" id="3"]
@@ -14,6 +14,11 @@ glow_strength = 1.14
 glow_blend_mode = 0
 glow_hdr_threshold = 1.5
 glow_hdr_scale = 1.37
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0cnec"]
+properties/0/path = NodePath("win_message:visible")
+properties/0/spawn = true
+properties/0/sync = true
 
 [node name="Map_1" type="Node2D"]
 script = ExtResource("1")
@@ -46,3 +51,10 @@ position = Vector2(1098, 239)
 
 [node name="ResourcePoint5" parent="." instance=ExtResource("5_ktg61")]
 position = Vector2(1253, 781)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_0cnec")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://objects/connector_point.tscn", "res://objects/preview_path.tscn", "res://objects/preview_point.tscn", "res://objects/resource_point.tscn", "res://objects/root_path.tscn")
+spawn_path = NodePath("..")
